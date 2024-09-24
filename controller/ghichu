@@ -1,0 +1,2 @@
+Controller: sẽ chứa các file có chức năng nhận request từ client,
+ điều phối các Model và View để có thể cho ra output thích hợp và trả kết quả về cho người dung.
