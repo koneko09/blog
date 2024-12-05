@@ -1,0 +1,55 @@
+.theme {}
+
+.dark-theme {
+    background-color: rgba(40,40,40,255);
+    color: white;
+    label {
+        color: black !important
+    }
+    a {
+        color: white !important;
+    }
+    ul li a.dropdown-item {
+        color: black !important; 
+    }
+}
+
+.white-theme {
+    background-color: white;
+    color: black;
+    a {
+        color: black !important;
+    }
+}
+
+.dark-theme .theme-button {
+    border: none;
+    cursor: pointer;
+    margin-left: 0.2rem;
+    background-color: rgba(40,40,40,255);
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+}
+
+.dark-theme .theme-button:hover {
+    background-color: #808080; /* Màu xám */
+}
+
+.white-theme .theme-button {
+    border: none;
+    cursor: pointer;
+    margin-left: 0.2rem;
+    background-color: white;
+    color: dark;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+}
+
+.white-theme .theme-button:hover {
+    background-color: #808080; /* Màu xám */
+}
