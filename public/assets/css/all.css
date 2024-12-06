@@ -3,14 +3,14 @@
 .dark-theme {
     background-color: rgba(40,40,40,255);
     color: white;
-    label {
-        color: black !important
-    }
     a {
         color: white !important;
     }
     ul li a.dropdown-item {
         color: black !important; 
+    }
+    label {
+        color: white !important;
     }
 }
 
@@ -18,6 +18,9 @@
     background-color: white;
     color: black;
     a {
+        color: black !important;
+    }
+    label {
         color: black !important;
     }
 }

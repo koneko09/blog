@@ -111,7 +111,7 @@
   <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="<?=ROOT?>/logout">Sign out</a>
+      <a class="nav-link px-3" href="<?=ROOT?>/logout" style="color: white !important">Sign out</a>
     </div>
   </div>
 </header>

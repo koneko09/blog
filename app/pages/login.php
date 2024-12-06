@@ -113,11 +113,11 @@ if (!empty($_POST)) {
 
     <div class="form-floating">
       <input value="<?=old_value('email')?>" type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email</label>
+      <label for="floatingInput" style="color: black !important">Email</label>
     </div>
     <div class="form-floating">
       <input value="<?=old_value('password')?>" type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Mật Khẩu</label>
+      <label for="floatingPassword" style="color: black !important">Mật Khẩu</label>
     </div>
       <div class="my-2">
         Chưa có tài khoản? <a href="<?php echo ROOT ?>/register">Đăng kí</a>
