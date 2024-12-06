@@ -1,5 +1,5 @@
 <?php
-create_tables();
+//create_tables();
 function query( string $query, array $data = [] )
 {
     // define("DBUSER" , "root");
