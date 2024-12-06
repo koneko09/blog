@@ -9,8 +9,10 @@
 
     <link href="<?php echo ROOT ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo ROOT ?>/assets/css/bootstrap-icons.css" rel="stylesheet">
-    <style>
+    <link rel="stylesheet" href="<?php echo ROOT ?>/assets/css/all.css">
+    <script src="<?php echo ROOT ?>/assets/js/function.js" defer></script>
 
+    <style>
       .bi {
         vertical-align: -.125em;
         fill: currentColor;
@@ -65,13 +67,13 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-    </style>
+    </style>  
 
     
     <!-- Custom styles for this template -->
     <link href="<?php echo ROOT ?>/assets/css/headers.css" rel="stylesheet">
   </head>
-  <body>
+  <body id="home" class='theme white-theme'>
 
   <header class="p-3 border-bottom">
     <div class="container">
@@ -84,6 +86,15 @@
           <li><a href="#" class="nav-link px-2 link-secondary">Trang chủ</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Blog</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Liên hệ</a></li>
+          <li>
+            <button 
+              id="themeButton"
+              onclick="changeTheme()"
+              class="theme-button"
+            >
+              🌚
+            </button>
+          </li>
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
