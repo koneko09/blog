@@ -149,7 +149,7 @@
       <?php endif; ?>
     <div class="form-floating">
       <input value="<?=old_value('username')?>" type="text" name="username" class="form-control mb-2" id="floatingInput" placeholder="tên">
-      <label for="floatingInput">Tên tài khoản</label>
+      <label for="floatingInput" style="color: black !important">Tên tài khoản</label>
     </div>
 
     <?php if( !empty( $erros['username'])): ?>
@@ -158,7 +158,7 @@
 
     <div class="form-floating">
       <input value="<?=old_value('email')?>" type="email" name="email" class="form-control mb-2" id="floatingInput" placeholder="tên@gmail.com">
-      <label for="floatingInput">Email</label>
+      <label for="floatingInput" style="color: black !important">Email</label>
     </div>
 
     <?php if( !empty( $erros['email'])): ?>
@@ -167,7 +167,7 @@
 
     <div class="form-floating">
       <input value="<?=old_value('password')?>" type="password" name="password" class="form-control" id="floatingPassword" placeholder="mật khẩy">
-      <label for="floatingPassword">Mật khẩu</label>
+      <label for="floatingPassword" style="color: black !important">Mật khẩu</label>
     </div>
     <?php if( !empty( $erros['password'])): ?>
     <div class="text-danger"> <?=$erros['password'] ?></div>
@@ -175,7 +175,7 @@
 
     <div class="form-floating">
       <input value="<?=old_value('rePassword')?>" type="password" name="rePassword" class="form-control" id="floatingPassword" placeholder="nhập lại mật khẩu">
-      <label for="floatingPassword">Nhập lại mật khẩu</label>
+      <label for="floatingPassword" style="color: black !important">Nhập lại mật khẩu</label>
     </div>
     <div class="my-2">
         Đã có tài khoản? <a href="<?php echo ROOT ?>/login">Đăng nhập</a>
