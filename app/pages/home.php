@@ -74,12 +74,11 @@
     <link href="<?php echo ROOT ?>/assets/css/headers.css" rel="stylesheet">
   </head>
   <body id="home" class='theme white-theme'>
-
   <header class="p-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <img class="bi me-2"  src="<?php echo ROOT ?>/assets/images/logo.jpg" alt="" width="60" height="52" style="object-fit: cover;">
+          <img class="bi me-2"  src="<?php echo ROOT ?>/assets/images/logo.jpg" alt="" width="60" height="52" style="object-fit: cover; border-radius: 20px;">
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -95,6 +94,100 @@
               🌚
             </button>
           </li>
+          <div class="radio">
+            <div class="radio-antens">
+              \/
+            </div>
+            <audio controls id="music" style="display:none">
+              <source id="music-source" src="<?php echo ROOT ?>/assets/music/New Home (Slowed).mp3">
+            </audio>
+
+            <div style="display: flex">
+              <button id="previousSongBtn"  style="background: gray; border-right: none;"  onclick="previousSong()">⚫</button>
+              <button id="playMusicBtn"     style="background: gray; border-right: none; border-left: none;"  onclick="playMusic()">▶️</button>
+              <button id="nextSongBtn"      style="background: gray; border-left: none;"  onclick="nextSong()">⚫</button>
+            </div>
+            <style>
+              .radio {
+                display: flex;
+                height: 5rem;
+                width: 2rem;
+                justify-content: center;
+                border-radius: 20px;
+                flex-wrap: wrap;
+                position: absolute;
+                top: -15px;
+                right: 8%;
+                z-index: 100;
+              }
+              
+              .radio-antens {
+                font-weight: 1000;
+                position: relative;
+                color: black;
+                top: 19px;
+              }
+            </style>
+            <script>
+              let currentSong = 0;
+
+              const playlist = [
+                "<?php echo ROOT ?>/assets/music/Beautiful Memories.mp3",
+                "<?php echo ROOT ?>/assets/music/Jacob and the Stone - Minari.mp3",
+                "<?php echo ROOT ?>/assets/music/Je Te Laisserai Des Mots (Extended).mp3",
+                "<?php echo ROOT ?>/assets/music/New Home (Slowed).mp3",
+                "<?php echo ROOT ?>/assets/music/Dreamcore.mp3"
+              ];
+
+              function playMusic() {
+                let playMusicBtn = document.getElementById('playMusicBtn');
+                let music = document.getElementById('music');
+
+                if (playMusicBtn.innerHTML.trim() === '▶️') {
+                  playMusicBtn.innerHTML = '⏸️';
+                  music.play();
+                } else if (playMusicBtn.innerHTML.trim() === '⏸️') {
+                  playMusicBtn.innerHTML = '▶️';
+                  music.pause();
+                }
+              }
+
+              function previousSong() {
+                let music = document.getElementById('music');
+                let musicSource = document.getElementById("music-source");
+
+                currentSong = (currentSong - 1 + playlist.length) % playlist.length;
+                console.log(`Song number ${currentSong}: ${playlist[currentSong].split('<?php echo ROOT ?>/assets/music/')[1].split('.mp3')[0]}`)
+                musicSource.src = playlist[currentSong];
+
+                music.load();
+                music.play();
+                updatePlayButton();
+              }
+
+              function nextSong() {
+                let music = document.getElementById('music');
+                let musicSource = document.getElementById("music-source");
+
+                currentSong = (currentSong + 1) % playlist.length;
+                console.log(`Song number ${currentSong}: ${playlist[currentSong].split('<?php echo ROOT ?>/assets/music/')[1].split('.mp3')[0]}`)
+                musicSource.src = playlist[currentSong];
+
+                music.load();
+                music.play();
+                updatePlayButton();
+              }
+
+              function updatePlayButton() {
+                let playMusicBtn = document.getElementById('playMusicBtn');
+                playMusicBtn.innerHTML = '⏸️';
+              }
+
+              document.getElementById('music').addEventListener('ended', function() {
+                nextSong();
+              })
+            </script>
+          </div>
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
