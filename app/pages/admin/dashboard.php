@@ -1,4 +1,4 @@
-<h4>Statistics</h4>
+<h4>Thống kê</h4>
 
 <div class="row justify-content-center">
 	

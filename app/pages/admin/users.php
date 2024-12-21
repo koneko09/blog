@@ -71,7 +71,9 @@ if ($action == "add"): ?>
       <input value="<?=old_value('rePassword')?>" type="password" name="rePassword" class="form-control" id="floatingPassword" placeholder="nhập lại mật khẩu">
       <label for="floatingPassword">Nhập lại mật khẩu</label>
     </div>
-
+    <a href="<?=ROOT?>/admin/users">
+          <button class=" mt-4 w-100 btn btn-lg btn-primary" type="button">Quay lại</button>
+    </a>
 
     <button class=" mt-4 w-100 btn btn-lg btn-primary" type="submit">Đăng Kí</button>
   

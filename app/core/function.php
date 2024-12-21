@@ -80,6 +80,16 @@ function query_row( string $query, array $data = [] )
 function  authenticate($row){
     $_SESSION['USER'] = $row;
 }
+function user($key = '')
+{
+	if(empty($key))
+		return $_SESSION['USER'];
+
+	if(!empty($_SESSION['USER'][$key]))
+		return $_SESSION['USER'][$key];
+
+	return '';
+}
 
 function  logged_in(){
     if(!empty($_SESSION['USER']))
@@ -89,17 +99,24 @@ function  logged_in(){
 
 function str_to_url($url)
 {
-
-   $url = str_replace("'", "", $url);
-   $url = preg_replace('~[^\\pL0-9_]+~u', '-', $url);
-   $url = trim($url, "-");
-   $url = iconv("utf-8", "us-ascii//TRANSLIT", $url);
-   $url = strtolower($url);
-   $url = preg_replace('~[^-a-z0-9_]+~', '', $url);
-   
-   return $url;
+    $url = str_replace("'", "", $url);
+    $url = preg_replace('~[^\\pL0-9_]+~u', '-', $url);
+    $url = trim($url, "-");
+    
+    // Attempt to convert using iconv
+    $converted_url = @iconv("utf-8", "us-ascii//TRANSLIT//IGNORE", $url);
+    if ($converted_url === false) {
+        // If iconv fails, retain the original URL
+        $url = preg_replace('~[^\\pL0-9_]+~u', '-', $url);
+    } else {
+        $url = $converted_url;
+    }
+    
+    $url = strtolower($url);
+    $url = preg_replace('~[^-a-z0-9_]+~', '', $url);
+    
+    return $url;
 }
-
 function esc($str)  {
     return htmlspecialchars($str ?? '');
 }
@@ -252,7 +269,59 @@ function resize_image($filename, $max_size = 1000)
 
 	}
 }
+function remove_images_from_content($content, $folder = 'uploads/')
+{
 
+	preg_match_all("/<img[^>]+/", $content, $matches);
+
+	if(is_array($matches[0]) && count($matches[0]) > 0)
+	{
+		foreach ($matches[0] as $img) {
+
+			if(!strstr($img, "data:"))
+			{
+				continue;
+			}
+
+			preg_match('/src="[^"]+/', $img, $match);
+			$parts = explode("base64,", $match[0]);
+
+			preg_match('/data-filename="[^"]+/', $img, $file_match);
+
+			$filename = $folder.str_replace('data-filename="', "", $file_match[0]);
+
+			file_put_contents($filename, base64_decode($parts[1]));
+			$content = str_replace($match[0], 'src="'.$filename, $content);
+			
+
+		}
+	}
+	return $content;
+}
+function add_root_to_images($content)
+{
+
+	preg_match_all("/<img[^>]+/", $content, $matches);
+
+	if(is_array($matches[0]) && count($matches[0]) > 0)
+	{
+		foreach ($matches[0] as $img) {
+
+			preg_match('/src="[^"]+/', $img, $match);
+			$new_img = str_replace('src="', 'src="'.ROOT."/", $img);
+			$content = str_replace($img, $new_img, $content);
+
+		}
+	}
+	return $content;
+}
+function remove_root_from_content($content)
+{
+	
+	$content = str_replace(ROOT, "", $content);
+
+	return $content;
+}
 
 
 function create_tables()

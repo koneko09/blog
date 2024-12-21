@@ -8,7 +8,7 @@
     {
        $erros["username"] = " bạn cần nhâp tên người dùng!";
     }
-    else if(!preg_match("/^[a-zA-z]+$/",$_POST['username']))
+    else if(!preg_match("/^[a-zA-z0-9 \-\_\&]+$/",$_POST['username']))
     {
         $erros["username"] = "tên người dùng phải là ký tự và không có khoảng cách!";
     }

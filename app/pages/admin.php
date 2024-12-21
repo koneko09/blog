@@ -3,7 +3,7 @@
     redirect("login");
   }
 
-  $session = $url[1] ?? "dashbord";
+  $session = $url[1] ?? "dashboard";
   $action = $url[2] ?? "view";
   $id = $url[3] ?? 0;
   $action = $url[2] ?? "view";
@@ -24,7 +24,7 @@
   }
   else if($session == 'posts')
   {
-    require_once "../app/pages/admin/user_controler.php";
+    require_once "../app/pages/admin/posts_controler.php";
   }
  
   
@@ -104,14 +104,14 @@
   <body class="theme white-theme">
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#" style="color: white !important; font-weight: bold;">Company name</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#" style="color: white !important; font-weight: bold;">My Blog</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="<?=ROOT?>/logout" style="color: white !important">Sign out</a>
+      <a class="nav-link px-3" href="<?=ROOT?>/logout" style="color: white !important">Đăng xuất</a>
     </div>
   </div>
 </header>
@@ -123,26 +123,26 @@
         <ul class="nav flex-column">
 
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="<?=ROOT?>/admin">
+            <a class="nav-link <?= $section =='dashboard' ? 'active': '' ?>" aria-current="page" href="<?=ROOT?>/admin/dashboard">
             <i class="bi bi-speedometer"></i>
               Bảng Điều Khiển
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="<?=ROOT?>/admin/users">
+            <a class="nav-link <?= $section =='users' ? 'active': '' ?>" aria-current="page" href="<?=ROOT?>/admin/users">
             <i class="bi bi-person-circle"></i>
               Người Dùng
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="<?=ROOT?>/admin/Categories">
+            <a class="nav-link <?= $section =='categories' ? 'active': '' ?>" aria-current="page" href="<?=ROOT?>/admin/Categories">
             <i class="bi bi-tag"></i>
               Thể Loại
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="<?=ROOT?>/admin/Posts">
+            <a class="nav-link <?= $section =='posts' ? 'active': '' ?>" aria-current="page" href="<?=ROOT?>/admin/posts">
             <i class="bi bi-file-post"></i>
               Bài Viết
             </a>
@@ -161,7 +161,7 @@
           <li class="nav-item">
             <a class="nav-link" href="<?=ROOT?>/">
             <i class="bi bi-house"></i>
-              Front end
+              Trang chủ
             </a>
           </li>
         </ul>
@@ -170,7 +170,7 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2">Bảng Điều Khiển</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
