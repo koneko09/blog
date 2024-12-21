@@ -259,7 +259,7 @@ function resize_image($filename, $max_size = 1000)
 				imagepng($dst_image, $filename, 90);
 				break;
 			case 'image/gif':
-				imagegif($dst_image, $filename, 90);
+				imagegif($dst_image, $filename);
 				break;
 			case 'image/webp':
 				imagewebp($dst_image, $filename, 90);

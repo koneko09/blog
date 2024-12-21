@@ -36,7 +36,6 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="<?=ROOT?>" class="nav-link px-2 <?=$url[0] =='home' ? 'link-primary':'link-dark'?>">Trang chủ</a></li>
           <li><a href="<?=ROOT?>/blog" class="nav-link px-2  <?=$url[0] =='blog' ? 'link-primary':'link-dark'?>">Blog</a></li>
-          <li><a href="<?=ROOT?>/search" class="nav-link px-2  <?=$url[0] =='search' ? 'link-primary':'link-dark'?>">Tìm kiếm</a></li>
           <li><a href="<?=ROOT?>/contact" class="nav-link px-2  <?=$url[0] =='contact' ? 'link-primary':'link-dark'?>">Liên hệ</a></li>
           <li>
             <span class="nav-link px-2 link-dark dropdown text-end">
@@ -86,10 +85,11 @@
           <img src="<?=get_image(user('image'))?>" alt="mdo" style="object-fit: cover;" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
+            <!-- đây sẽ là chỗ xem thêm tin bản thân -->
             <li><a class="dropdown-item" href="#">Xin chào, <?=user('username')?></a></li>
-            <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+          <!-- thêm chức năng admin sẽ là người vào được chức năng này -->
             <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
-            <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+        
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="<?=ROOT?>/logout">Đăng xuất</a></li>
           </ul>
