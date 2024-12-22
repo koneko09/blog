@@ -88,8 +88,9 @@
             <!-- đây sẽ là chỗ xem thêm tin bản thân -->
             <li><a class="dropdown-item" href="#">Xin chào, <?=user('username')?></a></li>
           <!-- thêm chức năng admin sẽ là người vào được chức năng này -->
+           <?php if($row['role']=='admin'){ ?>
             <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
-        
+            <?php } ?>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="<?=ROOT?>/logout">Đăng xuất</a></li>
           </ul>
