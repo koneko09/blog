@@ -212,7 +212,7 @@ if ($action == "add"): ?>
 <!-- Nếu action == view -->
 <?php else: ?>
   <h4 class="d-flex justify-content-between align-items-center">
-    <span>USERS</span>
+    <span>Người Dùng</span>
     <a href="<?=ROOT?>/admin/users/add">
         <button class="btn btn-primary">
             <i class="fa fa-plus" aria-hidden="true"></i> Thêm mới
