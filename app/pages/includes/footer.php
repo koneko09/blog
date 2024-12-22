@@ -16,7 +16,7 @@
           <li class="nav-item mb-2"><span class="text-muted">Đặng Dũng - 2221050407</span></li>
           <li class="nav-item mb-2"><span class="text-muted">Nguyễn Văn Minh - 2221050555</span></li>
           <li class="nav-item mb-2"><span class="text-muted">Bùi Đức Thắng - 2221050555</span></li>
-          <li class="nav-item mb-2"><span class="text-muted">Lê Văn C - Thành viên</span></li>
+          
         </ul>
       </div>
 

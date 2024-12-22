@@ -96,7 +96,7 @@ if ($action == "add"): ?>
 	    <?php if(!empty($row)):?>
 
 		    <?php if (!empty($errors)):?>
-		      <div class="alert alert-danger">Please fix the errors below</div>
+		      <div class="alert alert-danger">Làm theo hướng dẫn bên dưới!</div>
 		    <?php endif;?>
 
 		    <div class="my-2">

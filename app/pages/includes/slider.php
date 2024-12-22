@@ -4,22 +4,25 @@
 
 <div class="ism-slider" data-transition_type="fade" data-play_type="loop" id="my-slider">
   <ol>
-    <li>
-      <img src="<?php echo ROOT ?>/assets/images/1.jpg">
-      <div class="ism-caption ism-caption-0">My slide caption text</div>
-    </li>
-    <li>
-      <img src="<?php echo ROOT ?>/assets/images/1.jpg">
-      <div class="ism-caption ism-caption-0">My slide caption text</div>
-    </li>
-    <li>
-      <img src="<?php echo ROOT ?>/assets/images/3.jpg">
-      <div class="ism-caption ism-caption-0">My slide caption text</div>
-    </li>
-    <li>
-      <img src="<?php echo ROOT ?>/assets/images/4.jpg">
-      <div class="ism-caption ism-caption-0">My slide caption text</div>
-    </li>
+    
+    <?php
+         $query = "select posts.*,categories.category from posts join categories on posts.category_id = categories.id order by id desc limit 6";
+        $rows = query($query);
+        if($rows)
+        {
+          foreach($rows as $row)
+          {
+            ?>
+        
+            <li>
+            <img src="<?=get_image($row['image'])?>">
+              <div class="ism-caption ism-caption-0"><?=esc($row['title'])?></div>
+            </li>
+        
+        <?php  } ?>
+          
+      <?php  }?>
+  <?php   ?>
   </ol>
 </div>
 <!-- end slider -->

@@ -92,7 +92,7 @@
           </a>
           <ul class="dropdown-menu text-small">
             <!-- đây sẽ là chỗ xem thêm tin bản thân -->
-            <li><a class="dropdown-item" href="#">Xin chào, <?=user('username')?></a></li>
+            <li><a class="dropdown-item" href="#">Xin chào, <?php echo user('username')?></a></li>
           <!-- thêm chức năng admin sẽ là người vào được chức năng này -->
             <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
         
@@ -109,7 +109,7 @@
           </a>
           <ul class="dropdown-menu text-small">
             <!-- đây sẽ là chỗ xem thêm tin bản thân -->
-            <li><a class="dropdown-item" href="#">Xin chào, <?=user('username')?></a></li>
+            <li><a class="dropdown-item" href="">Xin chào, <?=user('username')?></a></li>
           <!-- thêm chức năng admin sẽ là người vào được chức năng này -->
             <li><a class="dropdown-item" href="<?=ROOT?>/user">Quản lý</a></li>
         
