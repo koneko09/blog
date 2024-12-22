@@ -1,5 +1,5 @@
-<div class="container-fluid" style="background-color: #f2f2f2; margin: 0;">
-  <footer class="py-5">
+<div class="container-fluid theme">
+  <footer class="py-5 theme ">
     <div class="row">
       <!-- Cột Logo -->
       <div class="col-12 col-md-3 mb-3 text-center text-md-start">
