@@ -23,4 +23,5 @@
       ?>
 
   </div>
+  </main>
   <?php include '../app/pages/includes/footer.php'; ?>

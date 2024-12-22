@@ -68,7 +68,7 @@ if ($action == "add"): ?>
 	  <div class="text-danger"><?=$errors['category']?></div>
 	  <?php endif;?>
 
-	<a href="<?=ROOT?>/admin/posts">
+	<a href="<?=ROOT?>/user/posts">
 		<button class="mt-4 btn btn-lg btn-primary" type="button">Quay lại</button>
 	</a>
 	<button class="mt-4 btn btn-lg btn-primary float-end" type="submit">tạo</button>
@@ -154,7 +154,7 @@ if ($action == "add"): ?>
 	      <div class="text-danger"><?=$errors['category']?></div>
 	      <?php endif;?>
 
-		    <a href="<?=ROOT?>/admin/posts">
+		    <a href="<?=ROOT?>/user/posts">
 			    <button class="mt-4 btn btn-lg btn-primary" type="button">Quay lại</button>
 			</a>
 		    <button class="mt-4 btn btn-lg btn-primary  float-end" type="submit">Lưu</button>
@@ -203,7 +203,7 @@ if ($action == "add"): ?>
 		      <?php endif;?>
  
 
-		    <a href="<?=ROOT?>/admin/posts">
+		    <a href="<?=ROOT?>/user/posts">
 			    <button class="mt-4 btn btn-lg btn-primary" type="button">Quay lại</button>
 			</a>
 		    <button class="mt-4 btn btn-lg btn-danger  float-end" type="submit">xoá</button>
@@ -215,14 +215,14 @@ if ($action == "add"): ?>
 	  </form>
 	</div>
 <?php else: ?>
-	
-<h4 class="d-flex justify-content-between align-items-center">
-    <span>Bài viết</span>
-    <a href="<?=ROOT?>/admin/posts/add">
-        <button class="btn btn-primary">
-            <i class="fa fa-plus" aria-hidden="true"></i> Thêm mới
-        </button>
+
+
+<h4>
+    Bài viết
+    <a href="<?=ROOT?>/user/posts/add">
+    <button class="btn btn-primary">thêm mới</button>
     </a>
+   
 </h4>
 <div class="table-responsive">
     <table class="table">
@@ -238,8 +238,8 @@ if ($action == "add"): ?>
 
               $limit = 10;
               $offset = ($PAGE['page_number']-1) * $limit;
-              $query = "SELECT * FROM posts ORDER BY id ASC LIMIT $limit OFFSET $offset";
-              $rows = query($query);
+              $query = "SELECT * FROM posts WHERE user_id = :id ORDER BY id ASC LIMIT $limit OFFSET $offset";
+              $rows = query($query, ['id' => $_SESSION['USER']['id']]);
         ?>
         <?php if (!empty($rows)): ?>
             <?php foreach ($rows as $row): ?>
@@ -252,14 +252,14 @@ if ($action == "add"): ?>
 				            </td>
                     <td><?= $row['date'] ?></td>
                     <td>
-                    <a href="<?= ROOT ?>/admin/posts/edit/<?= $row['id'] ?>">
+                    <a href="<?= ROOT ?>/user/posts/edit/<?= $row['id'] ?>">
 
                         <button class="btn btn-warning text-white btn-sm">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                     </a>
 
-                    <a href="<?= ROOT ?>/admin/posts/delete/<?= $row['id'] ?>">
+                    <a href="<?= ROOT ?>/user/posts/delete/<?= $row['id'] ?>">
                         <button class="btn btn-danger btn-sm">
                              <i class="bi bi-trash-fill"></i>
                          </button>

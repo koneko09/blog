@@ -92,7 +92,9 @@
 
       }
     }
-  }else if($action=="edit")
+  }
+  
+  else if($action=="edit")
   {
     $query = "SELECT * FROM users WHERE id = :id limit 1";
     $row = query_row($query,['id' => $id]);
@@ -152,16 +154,17 @@
             $destination = "";
             if(!in_array($_FILES['image']['type'], $allowed))
             {
-              $errors['image'] = "Image format not supported";
+              $errors['image'] = "Định dạng hình ảnh không được hỗ trợ!";
             }else
             {
-              $folder = "uploads/";
+              $folder = "uploads/avatar/";
               if(!file_exists($folder))
               {
                 mkdir($folder, 0777, true);
               }
 
-              $destination = $folder . time() . $_FILES['image']['name'];
+              // $destination = $folder . time() . $_FILES['image']['name'];
+              $destination = $folder . $_FILES['image']['name'];
               move_uploaded_file($_FILES['image']['tmp_name'], $destination);
               resize_image($destination);
             }

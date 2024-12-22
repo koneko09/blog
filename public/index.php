@@ -3,8 +3,10 @@ session_start();
 
 require "../app/core/init.php";
 $url = $_GET['url'] ?? 'home';
+
 $url = strtolower($url);
 $url = explode('/', $url);
+
 $page_name = trim($url[0]);
 $file_name = "../app/pages/".$page_name.".php";
 

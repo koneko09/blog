@@ -10,8 +10,9 @@ function query( string $query, array $data = [] )
     $string = "mysql:hostname=".DBHOST.";dbname=".DBNAME;
     $con = new PDO($string, DBUSER, DBPASS);
 
-   
+	//Chuẩn bị câu lệnh
     $stmt = $con->prepare($query);
+	//Thực thi câu lệnh, thay các placeholder bằng giá trị trong mảng đc truyền vào
     $stmt->execute($data);
 
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -19,6 +20,21 @@ function query( string $query, array $data = [] )
         return $result;
     }
     return false;
+
+}
+
+function query_update( string $query, array $data = [] )
+{
+
+    $string = "mysql:hostname=".DBHOST.";dbname=".DBNAME;
+    $con = new PDO($string, DBUSER, DBPASS);
+
+	//Chuẩn bị câu lệnh
+    $stmt = $con->prepare($query);
+	//Thực thi câu lệnh, thay các placeholder bằng giá trị trong mảng đc truyền vào
+    $stmt->execute($data);
+
+    return true;
 
 }
 
@@ -77,8 +93,12 @@ function query_row( string $query, array $data = [] )
 
 }
 
-function  authenticate($row){
-    $_SESSION['USER'] = $row;
+// Hàm xác thực, tạo 1 session mới tên USER có giá trị là mảng thông tin người dùng
+function authenticate($row){
+	if($row['role'] == 'admin')
+    	$_SESSION['ADMIN'] = $row;
+	if($row['role'] == 'user')
+		$_SESSION['USER'] = $row;
 }
 function user($key = '')
 {
@@ -90,9 +110,14 @@ function user($key = '')
 
 	return '';
 }
-
-function  logged_in(){
-    if(!empty($_SESSION['USER']))
+function logged_in_user(){
+    if(!empty($_SESSION['USER']) && $_SESSION['USER']['role'] == 'user')
+         return true;
+    return false;
+}
+// Hàm xác thực session, nếu tồn tại session có tên USER thì trả về true, ngược lại là false
+function logged_in(){
+    if(!empty($_SESSION['ADMIN']) && $_SESSION['ADMIN']['role'] == 'admin')
          return true;
     return false;
 }
@@ -124,23 +149,25 @@ function redirect($page) {
     header('Location: '.ROOT.'/' . $page);
     die;
 }
+// Hàm trả về giá trị cũ được nhập trước đó từ form được gửi bằng POST
 function old_value($key, $default = '') {
     if(!empty($_POST[$key]))
        return $_POST[$key];
     return $default;
 }
 
-function old_check($key, $default = ''){
+function old_check($key){
+	$default = '';
     if(!empty($_POST[$key]))
        return "checked";
     return "";
 }
 
 function old_select($key, $value, $default = '') {
-    if (!empty($_POST[$key]) && $_POST[$key] === $value) {
+    if (!empty($_POST[$key]) && $_POST[$key] == $value) {
         return "selected";
     }
-    if ($default === $value) {
+    if ($default == $value) {
         return "selected";
     }
     return "";
@@ -148,7 +175,7 @@ function old_select($key, $value, $default = '') {
 
 function get_image($file)
 {
-	$file = $file ?? '';
+	$file = isset($file) ? $file : '';
 	if(file_exists($file))
 	{
 		return ROOT.'/'.$file;

@@ -60,7 +60,7 @@ if ($action == "add"): ?>
     <?php endif; ?>
 
     <div class="form-floating">
-      <input value="<?=old_value('password')?>" type="password" name="password" class="form-control" id="floatingPassword" placeholder="mật khẩy">
+      <input value="<?=old_value('password')?>" type="password" name="password" class="form-control" id="floatingPassword" placeholder="mật khẩu">
       <label for="floatingPassword">Mật khẩu</label>
     </div>
     <?php if( !empty( $erros['password'])): ?>
@@ -79,9 +79,9 @@ if ($action == "add"): ?>
   
   </form>
 </div>
-<?php elseif ($action == "edit"): 
-    // Code for editing a user
-?>
+
+<!-- Nếu biến action == edit -->
+<?php elseif ($action == "edit"): ?>
 <div class="col-md-6 mx-auto" >
 <form method="post" enctype="multipart/form-data">
     <h1 class="h3 mb-3 fw-normal" style="text-align: center;">Chỉnh Sửa Tài Khoản</h1>
@@ -131,11 +131,11 @@ if ($action == "add"): ?>
 
     <div class="form-floating">
       <select name="role" class="form-select my-3">
-        <option value="<?=old_select('role','user',$row['role'])?>" value="user">User</option>
-        <option value="<?=old_select('role','admin',$row['role'])?>" value="admin">Admin</option>
+        <option <?=old_select('role','user',$row['role'])?> value="user">User</option>
+        <option <?=old_select('role','admin',$row['role'])?> value="admin">Admin</option>
 
       </select>
-      <label for="floatingInput">Vai trò</label>
+      <label for="role">Vai trò</label>
     </div>
 
     <?php if( !empty( $erros['role'])): ?>
@@ -164,9 +164,9 @@ if ($action == "add"): ?>
 <?php endif; ?>
   </form>
 </div>
-<?php elseif ($action == "delete"):
-    // Code for deleting a user
-?>         
+
+<!-- Nếu action == delete -->
+<?php elseif ($action == "delete"): ?>         
 <div class="col-md-6 mx-auto">
 <form method="post">
     <h1 class="h3 mb-3 fw-normal">Xoá Tài Khoản</h1>
@@ -208,26 +208,28 @@ if ($action == "add"): ?>
 <?php endif; ?>
   </form>
 </div>
+
+<!-- Nếu action == view -->
 <?php else: ?>
-
-
-<h4>
-    USERS
+  <h4 class="d-flex justify-content-between align-items-center">
+    <span>USERS</span>
     <a href="<?=ROOT?>/admin/users/add">
-    <button class="btn btn-primary">thêm mới</button>
+        <button class="btn btn-primary">
+            <i class="fa fa-plus" aria-hidden="true"></i> Thêm mới
+        </button>
     </a>
-   
 </h4>
+
 <div class="table-responsive">
     <table class="table">
         <tr>
             <th>#</th>
-            <th>tên người dùng</th>
+            <th>Tên người dùng</th>
             <th>Email</th>
-            <th>vai trò</th>
-            <th>avatar</th>
-            <th>ngày tạo</th>
-            <th>chức năng</th>
+            <th>Vai trò</th>
+            <th>Avatar</th>
+            <th>Ngày tạo</th>
+            <th>Chức năng</th>
         </tr>
         <?php
 
@@ -257,7 +259,7 @@ if ($action == "add"): ?>
 
                     <a href="<?= ROOT ?>/admin/users/delete/<?= $row['id'] ?>">
                         <button class="btn btn-danger btn-sm">
-                             <i class="bi bi-pencil-fill"></i>
+                             <i class="bi bi-trash-fill"></i>
                          </button>
                     </a>
                         

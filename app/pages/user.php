@@ -2,13 +2,12 @@
 // require_once "../core/function.php";
 
   // Dùng hàm logged_in để xác thực session đăng nhập
-  if(!logged_in()){
+  if(!logged_in_user()){
     // header('Location: login.php');
     redirect("login");
   }
-  if(!empty($_SESSION['USER']))
-    unset($_SESSION['USER']);
-
+  if(!empty($_SESSION['ADMIN']))
+    unset($_SESSION['ADMIN']);
   $session = isset($url[1]) ? $url[1] : "dashboard";
 
   $action = isset($url[2]) ? $url[2] : "view";
@@ -20,24 +19,24 @@
 
   // $action = $url[2] ?? "view";
   
-  $file_name = "../app/pages/admin/".$session.".php";
+  $file_name = "../app/pages/user/".$session.".php";
   
    //file_exists trong PHP được sử dụng để kiểm tra xem một tệp có tồn tại không
    if (!file_exists($file_name)) {
-    $file_name= "../app/pages/admin/erro.php";
+    $file_name= "../app/pages/user/erro.php";
   }
 
-  if($session == 'users')
+//   if($session == 'users')
+//   {
+//     include_once "../app/pages/admin/user_controler.php";
+//   }
+//   else if($session == 'categories')
+//   {
+//     require_once "../app/pages/admin/categories_controler.php";
+//   }
+   if($session == 'posts')
   {
-    include_once "../app/pages/admin/user_controler.php";
-  }
-  else if($session == 'categories')
-  {
-    require_once "../app/pages/admin/categories_controler.php";
-  }
-  else if($session == 'posts')
-  {
-    require_once "../app/pages/admin/posts_controler.php";
+    require_once "../app/pages/user/posts_controler.php";
   }
  
   
@@ -50,12 +49,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Admin - My Blog</title>
+    <title>User - My Blog</title>
 
    <link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="<?=ROOT?>/assets/css/bootstrap-icons.css" rel="stylesheet">
-   <!-- Font Awesome -->
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -124,7 +121,7 @@
   <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="<?=ROOT?>/logout_admin"><i class="fa-solid fa-right-to-bracket"></i> Sign out</a>
+      <a class="nav-link px-3" href="<?=ROOT?>/logout">Sign out</a>
     </div>
   </div>
 </header>
@@ -136,25 +133,25 @@
         <ul class="nav flex-column">
           
           <li class="nav-item">
-            <a class="nav-link <?=$session =='dashboard' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/admin">
+            <a class="nav-link <?=$session =='dashboard' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user">
               <i class="bi bi-speedometer"></i> 
               Bảng Điều Khiển
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link <?=$session =='users' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/admin/users">
+          <!-- <li class="nav-item">
+            <a class="nav-link <?=$session =='users' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/users">
               <i class="bi bi-person"></i> 
               Người Dùng
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?=$session =='categories' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/admin/categories">
+            <a class="nav-link <?=$session =='categories' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/categories">
               <i class="bi bi-tags"></i> 
               Thể Loại
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
-            <a class="nav-link <?=$session =='posts' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/admin/posts">
+            <a class="nav-link <?=$session =='posts' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/posts">
               <i class="bi bi-file-post"></i> 
               Bài Viết
             </a>
@@ -206,5 +203,6 @@
 
 
     <script src="<?=ROOT?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
   </body>
 </html>

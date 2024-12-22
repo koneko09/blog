@@ -43,7 +43,7 @@ if ($action == "add"): ?>
     // Code for editing a user
 ?>
 <div class="col-md-6 mx-auto">
-	  <form method="post" enctype="multipart/form-data">
+	  <form action="" method="post" enctype="multipart/form-data">
 
 	    <h1 class="h3 mb-3 fw-normal">Chỉnh sửa thể loại</h1>
 
@@ -122,14 +122,13 @@ if ($action == "add"): ?>
 	  </form>
 	</div>
 <?php else: ?>
-
-
-<h4>
-    Thể Loại
+<h4 class="d-flex justify-content-between align-items-center">
+    <span>Thể Loại</span>
     <a href="<?=ROOT?>/admin/categories/add">
-    <button class="btn btn-primary">thêm mới</button>
+        <button class="btn btn-primary">
+            <i class="fa fa-plus" aria-hidden="true"></i> Thêm mới
+        </button>
     </a>
-   
 </h4>
 <div class="table-responsive">
     <table class="table">
@@ -153,7 +152,7 @@ if ($action == "add"): ?>
                 <td><?=$row['id']?></td>
                 <td><?=esc($row['category'])?></td>
                 <td><?=$row['slug']?></td>
-                <td><?=$row['disabled'] ? 'Không':'Có'?></td>
+                <td><?=$row['disabled'] ? 'Tắt':'Bật'?></td>
                     <td>
 
                         <a href="<?= ROOT ?>/admin/categories/edit/<?= $row['id'] ?>">
@@ -165,7 +164,7 @@ if ($action == "add"): ?>
 
                         <a href="<?= ROOT ?>/admin/categories/delete/<?= $row['id'] ?>">
                             <button class="btn btn-danger btn-sm">
-                                <i class="bi bi-pencil-fill"></i>
+                                <i class="bi bi-trash-fill  "></i>
                             </button>
                         </a>
                     </td>

@@ -3,12 +3,12 @@
     <div class="col p-4 d-flex flex-column position-static">
       <strong class="d-inline-block mb-2 text-primary"><?=esc($row['category'] ?? 'Unknown')?></strong>
       
-      <a href="<?=ROOT?>/post/<?=$row['slug']?>">
+      <a style="text-decoration: none;" href="<?=ROOT?>/post/<?=$row['slug']?>">
         
         <h3 class="mb-0"><?=esc($row['title'])?></h3>
       </a>
-      <div class="mb-1 text-muted"><?=date("jS M, Y",strtotime($row['date']))?></div>
-      <a href="<?=ROOT?>/post/<?=$row['slug']?>" class="stretched-link">Continue reading..</a>
+      <div  class="mb-1 text-muted"><?=date("jS M, Y",strtotime($row['date']))?></div>
+      <a href="<?=ROOT?>/post/<?=$row['slug']?>" class="stretched-link">Xem tiếp..</a>
     </div>
     <div class="col-lg-5 col-12 d-lg-block">
       <a href="<?=ROOT?>/post/<?=$row['slug']?>">

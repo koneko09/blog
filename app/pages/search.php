@@ -34,16 +34,22 @@
       </div>
 
 
-  <div class="col-md-12 mb-4">
-    <a href="<?=$PAGE['first_link']?>">
-      <button class="btn btn-primary">Trang đầu</button>
-    </a>
-    <a href="<?=$PAGE['prev_link']?>">
-      <button class="btn btn-primary">trang trước</button>
-    </a>
-    <a href="<?=$PAGE['next_link']?>">
-      <button class="btn btn-primary float-end">trang tiếp</button>
-    </a>
+      <div class="row">
+    <div class="col-md-4 mb-4">
+      <a href="<?=$PAGE['first_link']?>">
+      <button class="btn btn-primary"><i class="fas fa-angle-double-left me-2"></i> Trang đầu</button>
+      </a>
+    </div>
+    <div class="col-md-4 mb-4">
+      <a href="<?=$PAGE['prev_link']?>">
+      <button class="btn btn-primary"><i class="fas fa-angle-left me-2"></i> Trang trước</button>
+      </a>
+    </div>
+    <div class="col-md-4 mb-4">
+      <a href="<?=$PAGE['next_link']?>">
+      <button class="btn btn-primary float-end">Trang sau <i class="fas fa-angle-right ms-2"></i></button>
+      </a>
+    </div>
   </div>
 </div>
 <?php include '../app/pages/includes/footer.php'; ?>

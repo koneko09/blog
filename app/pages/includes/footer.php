@@ -1,54 +1,41 @@
-<div class="container">
+<div class="container-fluid" style="background-color: #f2f2f2; margin: 0;">
   <footer class="py-5">
     <div class="row">
-      <div class="col-6 col-md-2 mb-3">
+      <!-- Cột Logo -->
+      <div class="col-12 col-md-3 mb-3 text-center text-md-start">
+        <a href="#">
+          <img src="<?php echo ROOT ?>/assets/images/logo.jpg" alt="Logo Team" style="max-width: 150px;">
+        </a>
+        <p class="text-muted mt-3">Chào mừng bạn đến với nhóm chúng tôi!</p>
+      </div>
+
+      <!-- Cột Giới Thiệu Thành Viên -->
+      <div class="col-12 col-md-4 mb-3">
+        <h5>Giới thiệu thành viên</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><span class="text-muted">Đặng Dũng - 2221050407</span></li>
+          <li class="nav-item mb-2"><span class="text-muted">Nguyễn Văn Minh - 2221050555</span></li>
+          <li class="nav-item mb-2"><span class="text-muted">Bùi Đức Thắng - 2221050555</span></li>
+          <li class="nav-item mb-2"><span class="text-muted">Lê Văn C - Thành viên</span></li>
+        </ul>
+      </div>
+
+      <!-- Cột Liên Quan -->
+      <div class="col-12 col-md-4 mb-3">
         <h5>Liên quan</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="<?php echo ROOT ?>/login" class="nav-link p-0 text-muted">Login</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Trang chủ</a></li>
+          <li class="nav-item mb-2"><a href="<?php echo ROOT ?>/login" class="nav-link p-0 text-muted">Đăng nhập</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Thể loại</a></li>
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Liên Hệ</a></li>
         </ul>
-      </div>
-
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-
-      <div class="col-md-5 offset-md-1 mb-3">
-        <form>
-          <h5>Subscribe to our newsletter</h5>
-          <p>Monthly digest of what's new and exciting from us.</p>
-          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-            <label for="newsletter1" class="visually-hidden">Email address</label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-            <button class="btn btn-primary" type="button">Subscribe</button>
-          </div>
-        </form>
       </div>
     </div>
 
+    <!-- Phần cuối -->
     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>&copy; 2022 Company, Inc. All rights reserved.</p>
+      <p>&copy; 2024</p>
       <ul class="list-unstyled d-flex">
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
@@ -57,11 +44,4 @@
     </div>
   </footer>
 </div>
-
-    <script src="<?php echo ROOT ?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-</main>
-
-
-      
-</body>
-</html>
+<script src="<?php echo ROOT ?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
