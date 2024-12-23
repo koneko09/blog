@@ -142,7 +142,7 @@ if (!empty($_POST)) {
                 <div class="text-danger"> <?=$errors['password'] ?></div>
             <?php endif; ?>
             <div class="form-group">    
-              <input value="<?=old_value('rePassword')?>" type="password" name="rePassword" class="form-control" placeholder="Mật khẩu">
+              <input value="<?=old_value('rePassword')?>" type="password" name="rePassword" class="form-control" placeholder="Nhập lại khẩu">
           </div>
        </div>
         

@@ -31,7 +31,7 @@
     <div class="container-fluid">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="<?=ROOT?>/home" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <img class="bi me-2"  src="<?php echo ROOT ?>/assets/images/logo.jpg" alt="" width="100%" height="52" style="object-fit: cover;">
+          <img class="bi me-2"  src="<?php echo ROOT ?>/assets/images/logo1.jpg" alt="" width="100%" height="52" style="object-fit: cover;">
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -87,6 +87,7 @@
           <a style="margin-right:0px;" class="btn btn-light" href="<?=ROOT?>/login"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</a>
       <?php endif; ?>
 
+      <!-- Nếu người đăng nhập là Admin -->
       <?php if(logged_in()): ?>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -95,7 +96,7 @@
           </a>
           <ul class="dropdown-menu text-small">
             <!-- đây sẽ là chỗ xem thêm tin bản thân -->
-            <li><a class="dropdown-item" href="#">Xin chào, <?php echo user('username')?></a></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>/admin/users/edit/<?=$_SESSION['ADMIN']['id']?>">Xin chào, <?=$_SESSION['ADMIN']['username']?></a></li>
           <!-- thêm chức năng admin sẽ là người vào được chức năng này -->
             <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
         
@@ -104,6 +105,8 @@
           </ul>
         </div>
       <?php endif; ?>
+
+      <!-- Nếu người đăng nhập là User -->
       <?php if(logged_in_user()): ?>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -112,7 +115,7 @@
           </a>
           <ul class="dropdown-menu text-small">
             <!-- đây sẽ là chỗ xem thêm tin bản thân -->
-            <li><a class="dropdown-item" href="">Xin chào, <?=user('username')?></a></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>/user/users/edit/<?=$_SESSION['USER']['id']?>">Xin chào, <?=user('username')?></a></li>
           <!-- thêm chức năng admin sẽ là người vào được chức năng này -->
             <li><a class="dropdown-item" href="<?=ROOT?>/user">Quản lý</a></li>
         

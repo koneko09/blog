@@ -26,10 +26,10 @@
     $file_name= "../app/pages/user/erro.php";
   }
 
-//   if($session == 'users')
-//   {
-//     include_once "../app/pages/admin/user_controler.php";
-//   }
+  if($session == 'users')
+  {
+    include_once "../app/pages/user/user_controler.php";
+  }
 //   else if($session == 'categories')
 //   {
 //     require_once "../app/pages/admin/categories_controler.php";
@@ -53,6 +53,8 @@
 
    <link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="<?=ROOT?>/assets/css/bootstrap-icons.css" rel="stylesheet">
+   <!-- Font Awesome -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -114,14 +116,14 @@
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Company name</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">MY BLOG</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="<?=ROOT?>/logout">Sign out</a>
+      <a class="nav-link px-3" href="<?=ROOT?>/logout"><i class="fa-solid fa-right-to-bracket"></i> Đăng Xuất</a>
     </div>
   </div>
 </header>
@@ -138,13 +140,13 @@
               Bảng Điều Khiển
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link <?=$session =='users' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/users">
+          <li class="nav-item">
+            <a class="nav-link <?=$session =='users' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/users/edit/<?=$_SESSION['USER']['id']?>">
               <i class="bi bi-person"></i> 
-              Người Dùng
+              Thông tin
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link <?=$session =='categories' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/categories">
               <i class="bi bi-tags"></i> 
               Thể Loại

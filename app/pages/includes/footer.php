@@ -4,7 +4,7 @@
       <!-- Cột Logo -->
       <div class="col-12 col-md-3 mb-3 text-center text-md-start">
         <a href="#">
-          <img src="<?php echo ROOT ?>/assets/images/logo.jpg" alt="Logo Team" style="max-width: 150px;">
+          <img src="<?php echo ROOT ?>/assets/images/logo1.jpg" alt="Logo Team" style="max-width: 150px;">
         </a>
         <p class="text-muted mt-3">Chào mừng bạn đến với nhóm chúng tôi!</p>
       </div>
@@ -13,10 +13,9 @@
       <div class="col-12 col-md-4 mb-3">
         <h5>Giới thiệu thành viên</h5>
         <ul class="nav flex-column">
+          <li class="nav-item mb-2"><span class="text-muted">Bùi Đức Thắng - 2121050756</span></li>
           <li class="nav-item mb-2"><span class="text-muted">Đặng Dũng - 2221050407</span></li>
-          <li class="nav-item mb-2"><span class="text-muted">Nguyễn Văn Minh - 2221050555</span></li>
-          <li class="nav-item mb-2"><span class="text-muted">Bùi Đức Thắng - 2221050555</span></li>
-          
+          <li class="nav-item mb-2"><span class="text-muted">Nguyễn Văn Minh - 2221050440</span></li>
         </ul>
       </div>
 
