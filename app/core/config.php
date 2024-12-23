@@ -1,3 +1,3 @@
 <?php 
-define("ROOT",'http://localhost/blog-thang/public');
-define('APP_NAME','My Blog');
+define("ROOT",'http://localhost/blog/public');
+define('APP_NAME','WEB BLOG');

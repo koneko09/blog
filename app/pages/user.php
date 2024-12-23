@@ -26,10 +26,10 @@
     $file_name= "../app/pages/user/erro.php";
   }
 
-//   if($session == 'users')
-//   {
-//     include_once "../app/pages/admin/user_controler.php";
-//   }
+  if($session == 'users')
+  {
+    include_once "../app/pages/user/user_controler.php";
+  }
 //   else if($session == 'categories')
 //   {
 //     require_once "../app/pages/admin/categories_controler.php";
@@ -53,6 +53,8 @@
 
    <link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="<?=ROOT?>/assets/css/bootstrap-icons.css" rel="stylesheet">
+   <!-- Font Awesome -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -121,7 +123,7 @@
   <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="<?=ROOT?>/logout">Sign out</a>
+      <a class="nav-link px-3" href="<?=ROOT?>/logout"><i class="fa-solid fa-right-to-bracket"></i> Sign out</a>
     </div>
   </div>
 </header>
@@ -138,13 +140,13 @@
               Bảng Điều Khiển
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link <?=$session =='users' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/users">
+          <li class="nav-item">
+            <a class="nav-link <?=$session =='users' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/users/edit/<?=$_SESSION['USER']['id']?>">
               <i class="bi bi-person"></i> 
-              Người Dùng
+              Thông tin
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link <?=$session =='categories' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/categories">
               <i class="bi bi-tags"></i> 
               Thể Loại

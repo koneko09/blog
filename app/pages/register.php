@@ -55,8 +55,7 @@
       $data['email'] = $_POST['email'];
       $data['role'] = "user";
       $data['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT ) ;
-      $data['phone'] = $_POST['phone'];
-      $query = " insert into users(username,email,password,phone,role) values(:username,:email,:password,:phone,:role) ";
+      $query = " insert into users(username,email,password,role) values(:username,:email,:password,:role) ";
       query($query,$data);
 
 
@@ -153,7 +152,7 @@
     <div class="text-danger" style="text-align: left;"> <?=$erros['password'] ?></div>
     <?php endif; ?>
           <div class="form-group">    
-              <input value="<?=old_value('rePassword')?>" type="password" name="rePassword" class="form-control" placeholder="Mật khẩu" required="required">
+              <input value="<?=old_value('rePassword')?>" type="password" name="rePassword" class="form-control" placeholder="Nhập lại khẩu" required="required">
           </div>
           <div class="checkbox mb-3">
           <label>

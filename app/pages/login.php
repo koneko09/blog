@@ -95,10 +95,10 @@ if (!empty($_POST)) {
               <input value="<?=old_value('password')?>" type="password" name="password" class="form-control" placeholder="Mật khẩu" required="required">
           </div>
           <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+              <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
           </div>
           <div class="clearfix">
-              <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+              <label class="pull-left checkbox-inline"><input type="checkbox"> Ghi nhớ</label>
               <a href="<?php echo ROOT ?>/forgot" class="pull-right">Quên mật khẩu?</a>
           </div>        
       </form>

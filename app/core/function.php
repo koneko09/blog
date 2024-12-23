@@ -1,7 +1,11 @@
 <?php
-// Hàm truy vấn đến CSDL, nếu có dữ liệu thì trả về, nếu không thì trả về false
+//create_tables();
 function query( string $query, array $data = [] )
 {
+    // define("DBUSER" , "root");
+    // define("DBPASS" , "");
+    // define("DBNAME" , "myblog_db");
+    // define("DBHOST" , "localhost");
 
     $string = "mysql:hostname=".DBHOST.";dbname=".DBNAME;
     $con = new PDO($string, DBUSER, DBPASS);
