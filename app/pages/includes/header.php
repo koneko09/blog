@@ -64,6 +64,9 @@
           <li><a href="<?=ROOT?>/contact" class="nav-link px-2  <?=$url[0] =='contact' ? 'link-primary':'link-dark'?>">Liên hệ</a></li>
             
           </li>
+          <li>
+            
+          </li>
         </ul>
 
         <form action="<?=ROOT?>/search" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -118,8 +121,149 @@
           </ul>
         </div>
       <?php endif; ?>
-      </div>
-    </div>
+
+      <div class="radio" id="draggable-radio">
+  <div class="radio-antens">🎵</div>
+  <p id="current-song-title" class="playing-song">New Home (Slowed)</p>
+  <audio controls id="music" style="display:none">
+    <source id="music-source" src="<?php echo ROOT ?>/assets/music/New Home (Slowed).mp3">
+  </audio>
+
+  <div style="display: flex">
+    <button id="previousSongBtn" style="background: gray; border-right: none;" onclick="previousSong()" aria-label="Previous Song">⏮️</button>
+    <button id="playMusicBtn" style="background: gray; border-right: none; border-left: none;" onclick="playMusic()" aria-label="Play/Pause Song">▶️</button>
+    <button id="nextSongBtn" style="background: gray; border-left: none;" onclick="nextSong()" aria-label="Next Song">⏭️</button>
+  </div>
+
+  <style>
+    .radio {
+      display: flex;
+      height: 5rem;
+      width: 8rem;
+      justify-content: center;
+      border-radius: 20px;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 50px;
+      right: 8%;
+      z-index: 100;
+      cursor: move; /* Chỉ thị cho người dùng biết rằng nó có thể di chuyển */
+    }
+    .playing-song {
+      text-align: center; 
+      font-weight: bold; 
+      margin-top: 10px;
+      background: rgba(0,0,0,0.5);
+      transition: opacity 0.5s ease;
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
+      user-select: none; /* Chống highlight văn bản */
+    }
+    .playing-song.fade-out {
+      opacity: 0;
+    }
+    .radio-antens {
+      font-weight: 1000;
+      position: relative;
+      color: black;
+      top: 19px;
+    }
+  </style>
+
+  <script>
+    let currentSong = 0;
+
+    const playlist = [
+      "<?php echo ROOT ?>/assets/music/Beautiful Memories.mp3",
+      "<?php echo ROOT ?>/assets/music/Jacob and the Stone - Minari.mp3",
+      "<?php echo ROOT ?>/assets/music/Je Te Laisserai Des Mots (Extended).mp3",
+      "<?php echo ROOT ?>/assets/music/New Home (Slowed).mp3",
+      "<?php echo ROOT ?>/assets/music/Dreamcore.mp3"
+    ];
+
+    function playMusic() {
+      let playMusicBtn = document.getElementById('playMusicBtn');
+      let music = document.getElementById('music');
+
+      if (playMusicBtn.innerHTML.trim() === '▶️') {
+        playMusicBtn.innerHTML = '⏸️';
+        music.play();
+      } else if (playMusicBtn.innerHTML.trim() === '⏸️') {
+        playMusicBtn.innerHTML = '▶️';
+        music.pause();
+      }
+    }
+
+    function previousSong() {
+      currentSong = (currentSong - 1 + playlist.length) % playlist.length;
+            let music = document.getElementById('music');
+      let musicSource = document.getElementById('music-source');
+      musicSource.src = playlist[currentSong];
+      music.load();
+      music.play();
+      updateSongTitle();
+      updatePlayButton();;
+    }
+
+    function nextSong() {
+      currentSong = (currentSong + 1) % playlist.length;
+            let music = document.getElementById('music');
+      let musicSource = document.getElementById('music-source');
+      musicSource.src = playlist[currentSong];
+      music.load();
+      music.play();
+      updateSongTitle();
+      updatePlayButton();;
+    }
+
+
+    function updateSongTitle() {
+      const songTitle = playlist[currentSong].split('/')[8].replace('.mp3', '');
+      const songTitleElement = document.getElementById('current-song-title');
+      
+      // Chỉnh animation
+      songTitleElement.classList.add('fade-out');
+
+      setTimeout(() => {
+        songTitleElement.innerText = `${songTitle}`;
+        songTitleElement.classList.remove('fade-out');
+      }, 500);
+    }
+
+    function updatePlayButton() {
+      let playMusicBtn = document.getElementById('playMusicBtn');
+      playMusicBtn.innerHTML = '⏸️';
+    }
+
+    document.getElementById('music').addEventListener('ended', nextSong);
+
+    // Them tính năng kéo thả
+    const radioElement = document.getElementById('draggable-radio');
+    let isDragging = false;
+    let cordinateX, cordinateY;
+
+    radioElement.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      cordinateX = e.clientX - radioElement.getBoundingClientRect().left;  // vị trí X
+      cordinateY = e.clientY - radioElement.getBoundingClientRect().top;   // vị trí y
+      radioElement.style.transition = 'none'; // Tắt transition khi kéo
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        radioElement.style.left = `${e.clientX - cordinateX}px`;
+        radioElement.style.top = `${e.clientY - cordinateY}px`;
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      radioElement.style.transition = 'left 0.3s ease, top 0.3s ease'; // Bật lại transition sau khi ngừng kéo
+    });
+  </script>
+</div>
+
   </header>
 
   <?php
