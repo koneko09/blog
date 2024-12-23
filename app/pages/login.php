@@ -77,7 +77,7 @@ if (!empty($_POST)) {
   <div class="login-form">
       <form method="post">
       <a href="<?php echo ROOT ?>/home">
-        <img class="mb-4 rounded-circle shadow" src="<?php echo ROOT ?>/assets/images/logo.jpg" alt="" width="92" height="92" style="object-fit: cover;">
+        <img class="mb-4 rounded-circle shadow" src="<?php echo ROOT ?>/assets/images/logo1.jpg" alt="" width="92" height="92" style="object-fit: cover;">
       </a>
         <h1 class="h3 mb-3 fw-normal">Đăng Nhập</h1>
     
