@@ -10,8 +10,6 @@ if ($action == "add"): ?>
       </div>
       <?php endif; ?>
 
-      
-
       <div class="form-floating">
 	      <input value="<?=old_value('category')?>" name="category" type="text" class="form-control mb-2" id="floatingInput" placeholder="Category">
 	      <label for="floatingInput">Tên thể loại</label>
@@ -39,7 +37,7 @@ if ($action == "add"): ?>
   
   </form>
 </div>
-<?php elseif ($action == "edit"): 
+<?php elseif ($action == "edit"):
     // Code for editing a user
 ?>
 <div class="col-md-6 mx-auto">
@@ -83,7 +81,7 @@ if ($action == "add"): ?>
 	</div>
 <?php elseif ($action == "delete"):
     // Code for deleting a user
-?>         
+?>
 <div class="col-md-6 mx-auto">
 	  <form method="post">
 

@@ -211,18 +211,18 @@
 
     function nextSong() {
       currentSong = (currentSong + 1) % playlist.length;
-            let music = document.getElementById('music');
+      let music = document.getElementById('music');
       let musicSource = document.getElementById('music-source');
       musicSource.src = playlist[currentSong];
       music.load();
       music.play();
       updateSongTitle();
-      updatePlayButton();;
+      updatePlayButton();
     }
 
 
     function updateSongTitle() {
-      const songTitle = playlist[currentSong].split('/')[8].replace('.mp3', '');
+      const songTitle = playlist[currentSong].split('/').pop().replace('.mp3', '');
       const songTitleElement = document.getElementById('current-song-title');
       
       // Chỉnh animation
