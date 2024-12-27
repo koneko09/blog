@@ -2,8 +2,6 @@
 
 <div class="row justify-content-center">
 	
-	
-
 	<div class="m-1 col-md-4 bg-light rounded shadow border text-center">
 		<h1><i class="bi bi-file-post"></i></h1>
 		<div>

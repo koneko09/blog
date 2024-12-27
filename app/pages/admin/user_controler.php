@@ -1,5 +1,5 @@
+<!-- Nếu biến action == add (hành động thêm mới người dùng) -->
 <?php 
- // add new
  if($action=="add"){
   
     if(!empty($_POST))
@@ -7,31 +7,40 @@
       // validate
       $erros = [];
   
+      // Bắt lỗi username
       if(empty($_POST["username"]))
       {
          $erros["username"] = " bạn cần nhâp tên người dùng!";
       }
-      else if(!preg_match("/^[a-zA-z]+$/",$_POST['username']))
-      {
-          $erros["username"] = "tên người dùng phải là ký tự và không có khoảng cách!";
-      }
-  
+      // else if(!preg_match("/^[a-zA-z]+$/",$_POST['username']))
+      // {
+      //     $erros["username"] = "tên người dùng phải là ký tự và không có khoảng cách!";
+      // }
+
+      // Bắt lỗi password
       if(empty($_POST["password"]))
       {
-         $erros["password"] = " bạn cần nhâp mật khẩu!";
+        $erros["password"] = "Mật khẩu không được để trống";
       }
-      else if(strlen($_POST["password"]) < 8)
-      {
-          $erros["password"] = "mật khẩu phải lớn hơn 8 kí tự!";
-      }
+      // if(empty($_POST["rePassword"]))
+      // {
+      //   $erros["rePassword"] = "Vui lòng nhập lại mật khẩu";
+      // }
+      // else if(strlen($_POST["password"]) < 8)
+      // {
+      //     $erros["password"] = "mật khẩu phải lớn hơn 8 kí tự!";
+      // }
       else if($_POST["password"] !== $_POST['rePassword'])
       {
           $erros["password"] = "mật khẩu không trùng khớp!";
       }
+
+      
       
       $query = " select id from users where email = :email limit 1 ";
       $email = query($query,['email' => $_POST['email']]);
   
+      // Bắt lỗi email
       if(empty($_POST["email"]))
       {
          $erros["email"] = " bạn cần nhập email!";
@@ -46,30 +55,38 @@
       }
   
       // validate image
+      // định dạng tệp ảnh cho phép
       $allowed = ['image/jpeg','image/png','image/webp'];
-      if(!empty($_FILES['image']['name']))
+      // kiểm tra xem tệp hình ảnh có được tải lên không
+      if(!empty($_FILES['image']['name'])) //Tên tệp gốc.
       {
         $destination = "";
+        //nếu định dạng không khớp thì báo lỗi
         if(!in_array($_FILES['image']['type'], $allowed))
         {
-          $errors['image'] = "Image format not supported";
+          $erros['image'] = "Image format not supported";
         }else
         {
+          //nếu định dạng hợp lệ
           $folder = "uploads/";
+          // Tạo thư mục uploads/ nếu chưa tồn tại.
           if(!file_exists($folder))
           {
-            mkdir($folder, 0777, true);
+            mkdir($folder, 0777, true); //0777 để cho phép đọc, ghi, và thực thi
           }
 
+          // Tên tệp được đặt thành: uploads/{thời gian}{tên gốc} (nhằm tránh trùng tên)
           $destination = $folder . time() . $_FILES['image']['name'];
+          // move_uploaded_file() di chuyển tệp từ đường dẫn tạm thời (tmp_name) đến vị trí đích ($destination)
           move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+          // thay đổi kích thước ảnh
           resize_image($destination);
         }
 
       }
     
-  
-      if(empty($errors))
+      // Nếu không có lỗi (mảng erros rỗng)
+      if(empty($erros))
       {
         //save to database
         $data = [];
@@ -80,6 +97,7 @@
 
         $query = "insert into users (username,email,password,role) values (:username,:email,:password,:role)";
         
+        // nếu có ảnh tải lên
         if(!empty($destination))
         {
           $data['image']     = $destination;
@@ -94,6 +112,7 @@
     }
   }
   
+  //<!-- Nếu biến action == edit (hành động chỉnh sửa người dùng) -->
   else if($action=="edit")
   {
     $query = "SELECT * FROM users WHERE id = :id limit 1";
@@ -109,28 +128,24 @@
           // validate
           $erros = [];
       
+          // Bắt lỗi username
           if(empty($_POST["username"]))
           {
             $erros["username"] = " bạn cần nhâp tên người dùng!";
           }
-          else if(!preg_match("/^[a-zA-z]+$/",$_POST['username']))
-          {
-              $erros["username"] = "tên người dùng phải là ký tự và không có khoảng cách!";
-          }
-      
-          if(empty($_POST["password"]))
-          {
-            
-          }
-          else if(strlen($_POST["password"]) < 8)
-          {
-              $erros["password"] = "mật khẩu phải lớn hơn 8 kí tự!";
-          }
-          else if($_POST["password"] !== $_POST['rePassword'])
-          {
-              $erros["password"] = "mật khẩu không trùng khớp!";
-          }
           
+      
+          
+          // Bắt lỗi password
+          if(!empty($_POST["password"]))
+          {
+            if($_POST["password"] !== $_POST['rePassword'])
+            {
+                $erros["password"] = "mật khẩu không trùng khớp!";
+            }
+          }
+
+          // Bắt lỗi email
           $query = " select id from users where email = :email && id !=:id limit 1 ";
           $email = query($query,['email' => $_POST['email'],'id'=>$id]);
       
@@ -171,10 +186,9 @@
 
           }
         
-      
-          if(empty($errors))
+          // Nếu không có lỗi (mảng erros rỗng)
+          if(empty($erros))
           {
-            //save to database
             $data = [];
             $data['username'] = $_POST['username'];
             $data['email']    = $_POST['email'];
@@ -190,6 +204,7 @@
                 $password_str = "password = :password, ";
               }
 
+              // Nếu cập nhật ảnh
               if(!empty($destination))
               {
                 $image_str = "image = :image, ";
@@ -207,8 +222,8 @@
     }
 
 
-    
-    else if($action=="delete")
+   //<!-- Nếu biến action == delete (hành động xoá người dùng) -->
+  else if($action=="delete")
   {
     $query = "SELECT * FROM users WHERE id = :id limit 1";
     $row = query_row($query,['id' => $id]);
@@ -220,9 +235,7 @@
           // validate
           $erros = [];
       
-          
-        
-      
+          // Nếu không có lỗi (mảng erros rỗng)
           if(empty($erros)){
             // delete from database
             $data = [];

@@ -1,20 +1,24 @@
 <?php 
- // add new
+ //<!-- Nếu biến action == add (hành động thêm mới thể loại) -->
  if($action == "add") {
   if(!empty($_POST))
   {
     //validate
-    $errors = [];
+    $erros = [];
 
+    // Bắt lỗi danh mục
     if(empty($_POST['category']))
     {
-      $errors['category'] = "Bạn phải điền tên thể loại!";
-    }else
-    if(!preg_match("/^[\p{L}0-9 \-\_\&]+$/u", $_POST['category']))
+      $erros['category'] = "Bạn phải điền tên thể loại!";
+    }
+    else if(!preg_match("/^[\p{L}0-9 \-\_\&]+$/u", $_POST['category']))
     {
-      $errors['category'] = "tên thể loại phải là kí tự!";
+      $erros['category'] = "Tên thể loại phải là kí tự!";
     }
 
+    // Nếu người dùng không nhập slug, thì tự tạo slug
+    if(empty($_POST['slug']))
+    {
     $slug = str_to_url($_POST['category']);
 
     $query = "select id from categories where slug = :slug limit 1";
@@ -25,7 +29,15 @@
       $slug .= rand(1000,9999);
     }
 
-    if(empty($errors))
+    }
+    // Nếu người dùng có nhập slug, thì $slug bằng giá trị người dùng nhập vào
+    else if(!empty($_POST['slug']))
+    {
+      $slug = $_POST['slug'];
+    }
+
+    // Nếu không có lỗi (mảng erros rỗng)
+    if(empty($erros))
     {
       //save to database
       $data = [];
@@ -40,7 +52,9 @@
 
     }
   }
-}else if($action=="edit")
+}
+//<!-- Nếu biến action == edit (hành động chỉnh sửa danh mục) -->
+else if($action=="edit")
   {
     $query = "select * from categories where id = :id limit 1";
     $row = query_row($query, ['id'=>$id]);
@@ -52,26 +66,53 @@
       {
 
         //validate
-        $errors = [];
+        $erros = [];
 
+        // Bắt lỗi danh mục và slug
         if(empty($_POST['category']))
         {
-          $errors['category'] = "không được để trống ô này!";
-        }else
-        if(!preg_match("/^[\p{L}0-9 \-\_\&]+$/u", $_POST['category']))
+          $erros['category'] = "Không được để trống ô này!";
+        }
+        if(empty($_POST['slug']))
         {
-          $errors['category'] = "tên thể loại phải là kí tự!";
+          $erros['slug'] = "Không được để trống ô này!";
+        }
+        else if(!preg_match("/^[\p{L}0-9 \-\_\&]+$/u", $_POST['category']))
+        {
+          $erros['category'] = "tên thể loại phải là kí tự!";
+        }
+
+        // Nếu người dùng không nhập slug, thì tự tạo slug
+        if(empty($_POST['slug']))
+        {
+        $slug = str_to_url($_POST['category']);
+
+        $query = "select id from categories where slug = :slug limit 1";
+        $slug_row = query($query, ['slug'=>$slug]);
+
+        if($slug_row)
+        {
+          $slug .= rand(1000,9999);
+        }
+
+        }
+        // Nếu người dùng có nhập slug, thì $slug bằng giá trị người dùng nhập vào
+        else if(!empty($_POST['slug']))
+        {
+          $slug = $_POST['slug'];
         }
  
-        if(empty($errors))
+        // Nếu không có lỗi (mảng erros rỗng)
+        if(empty($erros))
         {
           //save to database
           $data = [];
           $data['category'] = $_POST['category'];
+          $data['slug'] = $_POST['slug'];
           $data['disabled'] = $_POST['disabled'];
           $data['id'] = $id;
 
-          $query = "update categories set category = :category, disabled = :disabled where id = :id limit 1";
+          $query = "update categories set category = :category, slug = :slug, disabled = :disabled where id = :id limit 1";
 
           query($query, $data);
           redirect('admin/categories');
@@ -80,6 +121,8 @@
       }
     }
 }
+
+//<!-- Nếu biến action == delete (hành động xoá danh mục) -->
 else if($action=="delete")
   {
     $query = "select * from categories where id = :id limit 1";
@@ -92,9 +135,9 @@ else if($action=="delete")
           {
 
             //validate
-            $errors = [];
+            $erros = [];
  
-            if(empty($errors))
+            if(empty($erros))
             {
               //delete from database
               $data = [];

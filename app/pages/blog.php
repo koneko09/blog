@@ -8,10 +8,19 @@
 
    
       <?php
+        // Giới hạn là 10
         $limit = 10;
+
+        // biến xác định offset, nếu đang ở trang thứ 2 bắt đầu từ bài (2-1)*10 = 10, hiện từ bài thứ 10
         $offset = ($PAGE['page_number']-1) * $limit;
+        // Lấy thông tin tất cả bài viết (posts) và tên danh mục (category) của chúng
+        // sắp xếp theo thứ tự id giảm dần và giới hạn kết quả với phân trang dựa trên giá trị của $limit và $offset
+        // offset: bỏ qua số lượng bài viết đầu tiên
+        //LIMIT 10 OFFSET 10: bỏ qua 9 bài đầu, lấy từ bài thứ 10 đến bài 19 (giới hạn 10 bài)
         $query = "select posts.*,categories.category from posts join categories on posts.category_id = categories.id order by id desc limit $limit OFFSET $offset";
         $rows = query($query);
+
+        // Nếu có bài viết thì include post-cast.php
         if($rows)
         {
           foreach($rows as $row)

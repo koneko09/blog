@@ -6,19 +6,27 @@
     // header('Location: login.php');
     redirect("login");
   }
+  // Nếu session hiện tại là ADMIN thì unset
   if(!empty($_SESSION['ADMIN']))
     unset($_SESSION['ADMIN']);
-  $session = isset($url[1]) ? $url[1] : "dashboard";
 
-  $action = isset($url[2]) ? $url[2] : "view";
+  // kiểm tra phần tử thứ 2 trong mảng url, nếu tồn tại thì gán cho biến session
+  // nếu rỗng thì gán session = dashboard
+  $session = isset($url[1]) ? $url[1] : "dashboard"; //biến xác định quản lý chức năng nào: dashboard, users, categories, posts
 
+  // kiểm tra phần tử thứ 3 trong mảng url, nếu tồn tại thì gán cho biến action
+  // nếu rỗng thì gán url = view
+  $action = isset($url[2]) ? $url[2] : "view"; //Biến dùng để xác định hành động: add, edit, delete, view
+
+  // kiểm tra phần tử thứ 4 trong mảng url, nếu tồn tại thì gán cho biến id
+  // nếu rỗng thì gán id = id
   $id = isset($url[3]) ? $url[3] : "id";
   
   // echo $session;
   // echo $action;
-
   // $action = $url[2] ?? "view";
   
+  // Tạo đường dẫn dựa trên chức năng đã chọn: dashboard, users, categories, posts
   $file_name = "../app/pages/user/".$session.".php";
   
    //file_exists trong PHP được sử dụng để kiểm tra xem một tệp có tồn tại không
@@ -26,17 +34,15 @@
     $file_name= "../app/pages/user/erro.php";
   }
 
+  // Nếu chức năng đã chọn là quản lý người dùng
   if($session == 'users')
   {
     include_once "../app/pages/user/user_controler.php";
   }
-//   else if($session == 'categories')
-//   {
-//     require_once "../app/pages/admin/categories_controler.php";
-//   }
-   if($session == 'posts')
+  // Nếu chức năng đã chọn là quản lý bài viết
+  if($session == 'posts')
   {
-    require_once "../app/pages/user/posts_controler.php";
+    include_once "../app/pages/user/posts_controler.php";
   }
  
   
@@ -51,10 +57,13 @@
     <meta name="description" content="">
     <title>User - My Blog</title>
 
+    <!-- Css Boostrap -->
    <link href="<?=ROOT?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="<?=ROOT?>/assets/css/bootstrap-icons.css" rel="stylesheet">
    <!-- Font Awesome -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   <!-- Custom styles -->
+   <link href="<?=ROOT?>/assets/css/dashboard.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -108,22 +117,18 @@
         -webkit-overflow-scrolling: touch;
       }
     </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="<?=ROOT?>/assets/css/dashboard.css" rel="stylesheet">
   </head>
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Company name</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">MY BLOG</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="<?=ROOT?>/logout"><i class="fa-solid fa-right-to-bracket"></i> Sign out</a>
+      <a class="nav-link px-3" href="<?=ROOT?>/logout"><i class="fa-solid fa-right-to-bracket"></i> Đăng Xuất</a>
     </div>
   </div>
 </header>
@@ -146,12 +151,6 @@
               Thông tin
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link <?=$session =='categories' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/categories">
-              <i class="bi bi-tags"></i> 
-              Thể Loại
-            </a>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link <?=$session =='posts' ? 'active':''?>" aria-current="page" href="<?=ROOT?>/user/posts">
               <i class="bi bi-file-post"></i> 
@@ -182,28 +181,17 @@
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar" class="align-text-bottom"></span>
-            This week
-          </button>
-        </div>
       </div>
-
+        <!-- Include giao diện dựa trên chức năng quản lý đã chọn:  dashboard, users, categories, posts -->
         <?php
-
-            require_once $file_name;
-        
+        include_once $file_name;
         ?>
     </main>
   </div>
 </div>
 
 
+    <!-- Boostrap Js -->
     <script src="<?=ROOT?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>

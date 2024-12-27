@@ -1,45 +1,46 @@
-<?php 
+<?php
+ //<!-- Nếu biến action == edit (hành động chỉnh sửa) -->
  if($action=="edit")
   {
     $id = $_SESSION['USER']['id'];
     $query = "SELECT `id`, `username`, `email`, `password`, `phone`, `image`, `date` FROM users WHERE id = :id limit 1";
     $row = query_row($query,['id' => $id]);
 
-      
+    // Nếu tồn tại biến POST
     if(!empty($_POST))
     {
-  
+
       if($row){
 
-      
           // validate
           $erros = [];
-      
+          // Bắt lỗi username
           if(empty($_POST["username"]))
           {
             $erros["username"] = " bạn cần nhâp tên người dùng!";
           }
-          else if(!preg_match("/^[a-zA-z]+$/",$_POST['username']))
-          {
-              $erros["username"] = "tên người dùng phải là ký tự và không có khoảng cách!";
-          }
+          // else if(!preg_match("/^[a-zA-z]+$/",$_POST['username']))
+          // {
+          //     $erros["username"] = "tên người dùng phải là ký tự và không có khoảng cách!";
+          // }
       
-          if(empty($_POST["password"]))
+          // Bắt lỗi password
+          if(!empty($_POST["password"]))
           {
-            
-          }
-          else if(strlen($_POST["password"]) < 8)
-          {
-              $erros["password"] = "mật khẩu phải lớn hơn 8 kí tự!";
-          }
-          else if($_POST["password"] !== $_POST['rePassword'])
-          {
-              $erros["password"] = "mật khẩu không trùng khớp!";
+            // if(strlen($_POST["password"]) < 8)
+            // {
+            //     $erros["password"] = "mật khẩu phải lớn hơn 8 kí tự!";
+            // }
+            if($_POST["password"] !== $_POST['rePassword'])
+            {
+                $erros["password"] = "mật khẩu không trùng khớp!";
+            }
           }
           
           $query = " select id from users where email = :email && id !=:id limit 1 ";
           $email = query($query,['email' => $_POST['email'],'id'=>$id]);
-      
+          
+          // Bắt lỗi email
           if(empty($_POST["email"]))
           {
             $erros["email"] = " bạn cần nhập email!";
@@ -78,9 +79,10 @@
           }
         
       
-          if(empty($errors))
-          {
-            //save to database
+          // Nếu không có lỗi (mảng erros rỗng)
+          if(empty($erros))
+          { 
+
             $data = [];
             $data['username'] = $_POST['username'];
             $data['email']    = $_POST['email'];
@@ -90,12 +92,14 @@
             $password_str     = "";
             $image_str        = "";
 
+              // Nếu password không trống
               if(!empty($_POST['password']))
               {
+                // Mã hoá
                 $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $password_str = "password = :password, ";
               }
-
+              // Nếu cập nhật ảnh
               if(!empty($destination))
               {
                 $image_str = "image = :image, ";
@@ -107,6 +111,7 @@
             query($query, $data);
             unset($_SESSION['USER']);
             authenticate($data);
+            $_SESSION['USER']['image'] = $row['image'];
             redirect('home');
 
           }

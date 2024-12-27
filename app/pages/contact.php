@@ -19,7 +19,7 @@
         <li>Quản lý các bài viết, danh mục, user, với tài khoản quyền Admin</li>
         <li>Tìm kiếm bài viết bằng từ khoá</li>
         <li>Chuyển đổi chế độ Darkmode, LightMode</li>
-        <li>Và các tính năng khác. Liên hệ tôi: <a href="https://www.facebook.com/profile.php?id=100090370753559">Duxng</a></li>
+        <li>Và các tính năng khác. Liên hệ chúng tôi: <a href="">Nhóm 1</a></li>
     </ul>
 	</div>
 </div>

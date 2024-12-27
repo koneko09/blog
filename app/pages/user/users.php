@@ -1,11 +1,13 @@
-<!-- Nếu biến action == edit -->
+<!-- Nếu biến action == edit (hành động chỉnh sửa) -->
 <?php if ($action == "edit"): ?>
 <div class="col-md-6 mx-auto" >
 <form method="post" enctype="multipart/form-data">
     <h1 class="h3 mb-3 fw-normal" style="text-align: center;">Chỉnh Sửa Tài Khoản</h1>
 
+<!-- nếu tồn tại dữ liệu -->
 <?php if(!empty($row)): ?>
-    <?php if( !empty( $erros) ): ?>
+    <!-- hiện lỗi nếu biến $erros có dữ liệu -->
+    <?php if(!empty( $erros) ): ?>
       <div class="alert alert-danger ">
             vui lòng sửa các lỗi bên dưới!
       </div>
@@ -16,7 +18,7 @@
 		    		<img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor: pointer;width: 150px;height: 150px;object-fit: cover;">
 		    		<input onchange="display_image_edit(this.files[0])" type="file" name="image" class="d-none">
 		    	</label>
-		    	<?php if(!empty($errors['image'])):?>
+		    	<?php if(!empty($erros['image'])):?>
 			      <div class="text-danger"><?=$errors['image']?></div>
 			    <?php endif;?>
 
@@ -65,12 +67,12 @@
 			</a>
 		    <button class="mt-4 btn btn-lg btn-primary mb-3  float-end" type="submit">Lưu thay đổi</button>
 <?php else:?>
-    <div class="alert alert-danger text-center">không tìm thấy trang!</div>
+    <div class="alert alert-danger text-center">Không tìm thấy trang!</div>
 <?php endif; ?>
-  </form>
+</form>
 </div>
 
-<!-- Nếu action == delete -->
+<!-- Nếu action == delete (hành động chỉnh xoá)-->
 <?php elseif ($action == "delete"): ?>         
 <div class="col-md-6 mx-auto">
 <form method="post">

@@ -1,13 +1,14 @@
+<!-- Nếu biến action == add (hành động thêm mới bài viết) -->
 <?php
 if ($action == "add"): ?>
-	<link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets/summernote/summernote-lite.min.css">
+<link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets/summernote/summernote-lite.min.css">
 
 <div class="col-md-12 mx-auto">
   <form method="post" enctype="multipart/form-data">
 
 	<h1 class="h3 mb-3 fw-normal">Tạo bài viết</h1>
 
-	<?php if (!empty($errors)):?>
+	<?php if (!empty($erros)):?>
 	  <div class="alert alert-danger">Hãy làm theo hướng dẫn bên dưới!</div>
 	<?php endif;?>
 
@@ -17,8 +18,8 @@ if ($action == "add"): ?>
 			<img class="mx-auto d-block image-preview-edit" src="<?=get_image('')?>" style="cursor: pointer;width: 150px;height: 150px;object-fit: cover;">
 			<input onchange="display_image_edit(this.files[0])" type="file" name="image" class="d-none">
 		</label>
-		<?php if(!empty($errors['image'])):?>
-		  <div class="text-danger"><?=$errors['image']?></div>
+		<?php if(!empty($erros['image'])):?>
+		  <div class="text-danger"><?=$erros['image']?></div>
 		<?php endif;?>
 
 		<script>
@@ -33,17 +34,22 @@ if ($action == "add"): ?>
 
 	<div class="form-floating">
 	  <input value="<?=old_value('title')?>" name="title" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
-	  <label for="floatingInput">tiêu đề</label>
+	  <label for="floatingInput">Tiêu đề</label>
 	</div>
-	  <?php if(!empty($errors['title'])):?>
-	  <div class="text-danger"><?=$errors['title']?></div>
-	  <?php endif;?>
+	<?php if(!empty($erros['title'])):?>
+	  <div class="text-danger"><?=$erros['title']?></div>
+	<?php endif;?>
+	<div class="form-floating">
+	      <input value="<?=old_value('slug')?>" name="slug" type="text" class="form-control mb-2" id="floatingInput" placeholder="Category">
+	      <label for="floatingInput">Đường dẫn (có thể để trống)</label>
+	</div>
+	  
 
 	<div class="">
 	  <textarea id="summernote" rows="8" name="content" id="floatingInput" placeholder="Nội dung bài viết" type="content" class="form-control"><?=old_value('content')?></textarea>
 	</div>
-	  <?php if(!empty($errors['content'])):?>
-	  <div class="text-danger"><?=$errors['content']?></div>
+	  <?php if(!empty($erros['content'])):?>
+	  <div class="text-danger"><?=$erros['content']?></div>
 	  <?php endif;?>
 
 	<div class="form-floating my-3">
@@ -64,9 +70,9 @@ if ($action == "add"): ?>
 	  </select>
 	  <label for="floatingInput">Thể loại</label>
 	</div>
-	  <?php if(!empty($errors['category'])):?>
-	  <div class="text-danger"><?=$errors['category']?></div>
-	  <?php endif;?>
+	<?php if(!empty($erros['category_id'])):?>
+	<div class="text-danger"><?=$erros['category_id']?></div>
+	<?php endif;?>
 
 	<a href="<?=ROOT?>/admin/posts">
 		<button class="mt-4 btn btn-lg btn-primary" type="button">Quay lại</button>
@@ -79,13 +85,15 @@ if ($action == "add"): ?>
 	<script src="<?=ROOT?>/assets/summernote/summernote-lite.min.js"></script>
 	<script>
       $('#summernote').summernote({
-        placeholder: 'Post content',
+        placeholder: 'Nội dung bài viết',
         tabsize: 2,
         height: 400
       });
     </script>
+
+	
+<!-- Nếu biến action == edit (hành động sửa bài viết) -->
 <?php elseif ($action == "edit"): 
-    // Code for editing a user
 ?>
 <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets/summernote/summernote-lite.min.css">
 	<div class="col-md-12 mx-auto">
@@ -95,8 +103,8 @@ if ($action == "add"): ?>
 
 	    <?php if(!empty($row)):?>
 
-		    <?php if (!empty($errors)):?>
-		      <div class="alert alert-danger">Please fix the errors below</div>
+		    <?php if (!empty($erros)):?>
+		      <div class="alert alert-danger">Vui lòng sửa lỗi bên dưới</div>
 		    <?php endif;?>
 
 		    <div class="my-2">
@@ -104,8 +112,8 @@ if ($action == "add"): ?>
 		    		<img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor: pointer;width: 150px;height: 150px;object-fit: cover;">
 		    		<input onchange="display_image_edit(this.files[0])" type="file" name="image" class="d-none">
 		    	</label>
-		    	<?php if(!empty($errors['image'])):?>
-			      <div class="text-danger"><?=$errors['image']?></div>
+		    	<?php if(!empty($erros['image'])):?>
+			      <div class="text-danger"><?=$erros['image']?></div>
 			    <?php endif;?>
 
 		    	<script>
@@ -121,15 +129,19 @@ if ($action == "add"): ?>
 		      <input value="<?=old_value('title', $row['title'])?>" name="title" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
 		      <label for="floatingInput">Tiêu đề</label>
 		    </div>
-		      <?php if(!empty($errors['title'])):?>
-		      <div class="text-danger"><?=$errors['title']?></div>
+		      <?php if(!empty($erros['title'])):?>
+		      <div class="text-danger"><?=$erros['title']?></div>
 		      <?php endif;?>
+			<div class="form-floating">
+				<input value="<?=old_value('slug', $row['slug'])?>" name="slug" type="text" class="form-control mb-2" id="floatingInput" placeholder="Category">
+				<label for="floatingInput">Đường dẫn</label>
+			</div>
 
 		    <div class="">
 	      <textarea id="summernote" rows="8" name="content" id="floatingInput" placeholder="Nội dung bài viết" type="content" class="form-control"><?=old_value('content',add_root_to_images($row['content']))?></textarea>
 	    </div>
-	      <?php if(!empty($errors['content'])):?>
-	      <div class="text-danger"><?=$errors['content']?></div>
+	      <?php if(!empty($erros['content'])):?>
+	      <div class="text-danger"><?=$erros['content']?></div>
 	      <?php endif;?>
 
 	    <div class="form-floating my-3">
@@ -150,8 +162,8 @@ if ($action == "add"): ?>
 	      </select>
 	      <label for="floatingInput">thể loại</label>
 	    </div>
-	      <?php if(!empty($errors['category'])):?>
-	      <div class="text-danger"><?=$errors['category']?></div>
+	      <?php if(!empty($erros['category_id'])):?>
+	      <div class="text-danger"><?=$erros['category_id']?></div>
 	      <?php endif;?>
 
 		    <a href="<?=ROOT?>/admin/posts">
@@ -169,13 +181,14 @@ if ($action == "add"): ?>
 	<script src="<?=ROOT?>/assets/summernote/summernote-lite.min.js"></script>
 	<script>
       $('#summernote').summernote({
-        placeholder: 'Post content',
+        placeholder: 'Nội dung bài viết',
         tabsize: 2,
         height: 400
       });
     </script>
+
+<!-- Nếu biến action == delete (hành động xoá bài viết) -->
 <?php elseif ($action == "delete"):
-    // Code for deleting a user
 ?>         
 <div class="col-md-6 mx-auto">
 	  <form method="post">
@@ -184,22 +197,22 @@ if ($action == "add"): ?>
 
 	    <?php if(!empty($row)):?>
 
-		    <?php if (!empty($errors)):?>
-		      <div class="alert alert-danger">hãy sửa các lỗi bên dưới!</div>
+		    <?php if (!empty($erros)):?>
+		      <div class="alert alert-danger">Hãy sửa các lỗi bên dưới!</div>
 		    <?php endif;?>
 
 		    <div class="form-floating">
 		      <div class="form-control mb-2" ><?=old_value('title', $row['title'])?></div>
 		    </div>
-		      <?php if(!empty($errors['title'])):?>
-		      <div class="text-danger"><?=$errors['title']?></div>
+		      <?php if(!empty($erros['title'])):?>
+		      <div class="text-danger"><?=$erros['title']?></div>
 		      <?php endif;?>
 
 		    <div class="form-floating">
 		      <div class="form-control mb-2" ><?=old_value('slug', $row['slug'])?></div>
 		    </div>
-		      <?php if(!empty($errors['slug'])):?>
-		      <div class="text-danger"><?=$errors['slug']?></div>
+		      <?php if(!empty($erros['slug'])):?>
+		      <div class="text-danger"><?=$erros['slug']?></div>
 		      <?php endif;?>
  
 
@@ -214,8 +227,9 @@ if ($action == "add"): ?>
 
 	  </form>
 	</div>
+
+<!-- Nếu biến action == view (mặc định )(hành động xem các bài viết) -->
 <?php else: ?>
-	
 <h4 class="d-flex justify-content-between align-items-center">
     <span>Bài viết</span>
     <a href="<?=ROOT?>/admin/posts/add">
@@ -231,8 +245,8 @@ if ($action == "add"): ?>
             <th>Tiêu đề</th>
             <th>Slug</th>
             <th>Image</th>
-            <th>ngày tạo</th>
-            <th>chức năng</th>
+            <th>Ngày tạo</th>
+            <th>Chức năng</th>
         </tr>
         <?php
 
@@ -245,20 +259,20 @@ if ($action == "add"): ?>
             <?php foreach ($rows as $row): ?>
                 <tr>
                     <td><?= $row['id'] ?></td>
-                    <td><?= esc($row['title']) ?></td>
+                    <td><?= $row['title'] ?></td>
                     <td><?= $row['slug'] ?></td>
                     <td>
-					              <img src="<?=get_image($row['image'])?>" style="width: 100px;height: 100px;object-fit: cover;">
-				            </td>
+					    <img src="<?=get_image($row['image'])?>" style="width: 100px;height: 100px;object-fit: cover;">
+				    </td>
                     <td><?= $row['date'] ?></td>
                     <td>
+					<!-- Nút chỉnh sửa -->
                     <a href="<?= ROOT ?>/admin/posts/edit/<?= $row['id'] ?>">
-
                         <button class="btn btn-warning text-white btn-sm">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                     </a>
-
+					<!-- Nút xoá -->
                     <a href="<?= ROOT ?>/admin/posts/delete/<?= $row['id'] ?>">
                         <button class="btn btn-danger btn-sm">
                              <i class="bi bi-trash-fill"></i>

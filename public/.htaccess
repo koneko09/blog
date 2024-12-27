@@ -1,5 +1,17 @@
 RewriteEngine On
 
+#nếu tệp được yêu cầu (REQUEST_FILENAME) không phải là một tệp thực sự (!-f).
 RewriteCond %{REQUEST_FILENAME} !-f
+#nếu đường dẫn được yêu cầu (REQUEST_FILENAME) không phải là một thư mục thực sự (!-d).
 RewriteCond %{REQUEST_FILENAME} !-d
+
+#^(.*)$: lấy tất cả các phần của URL sau tên miền.
+#index.php?url=$1: chuyển hướng tất cả các URL khớp tới tệp index.php và truyền phần URL vào tham số url.
+#^(.*)$: Lấy toàn bộ phần còn lại của URL sau tên miền.
+#vd: URL là http://localhost/blog/public/home, thì home được gắn vào biến $1.
+#index.php?url=$1: Chuyển hướng toàn bộ yêu cầu tới tệp index.php và truyền phần URL vào biến $_GET['url']
+#L: Ngừng xử lý các quy tắc rewrite khác nếu quy tắc này khớp
+#QSA: Giữ nguyên các tham số query string trong URL, Ví dụ:
+#URL gốc: http://localhost/blog/public/home?page=2
+#Sau rewrite: http://localhost/blog/public/index.php?url=home&page=2
 RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]

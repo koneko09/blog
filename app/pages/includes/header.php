@@ -6,12 +6,15 @@
     <meta name="description" content="">
     <title>HOME - <?php echo APP_NAME ?> </title>
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Css Boostrap -->
     <link href="<?php echo ROOT ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo ROOT ?>/assets/css/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="<?php echo ROOT ?>/assets/css/headers.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo ROOT ?>/assets/css/all.css">
     <script src="<?php echo ROOT ?>/assets/js/function.js" defer></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
       .bi {
@@ -21,9 +24,6 @@
 
     </style>  
 
-    
-    <!-- Custom styles for this template -->
-    <link href="<?php echo ROOT ?>/assets/css/headers.css" rel="stylesheet">
   </head>
   <body id="home" class='theme white-theme'>
 
@@ -31,7 +31,7 @@
     <div class="container-fluid">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="<?=ROOT?>/home" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <img class="bi me-2"  src="<?php echo ROOT ?>/assets/images/logo.jpg" alt="" width="100%" height="52" style="object-fit: cover;">
+          <img class="bi me-2"  src="<?php echo ROOT ?>/assets/images/logo1.jpg" alt="" width="100%" height="52" style="object-fit: cover;">
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -43,7 +43,6 @@
                 Thể loại
               </a>
               <ul class="dropdown-menu text-small">
-               
                <?php  
 
                   $query = "select * from categories order by id desc";
@@ -54,9 +53,6 @@
                     <li><a class="dropdown-item" href="<?=ROOT?>/category/<?=$cat['slug']?>"><?=$cat['category']?></a></li>
                   <?php endforeach;?>
                 <?php endif;?>
-
-                
-              
               </ul>
             </span>
           </li>
@@ -83,6 +79,7 @@
               🌚
             </button>
 
+      <!-- Nếu chưa đăng nhập thì hiện nút đăng nhập -->
       <?php if(!logged_in() && !logged_in_user()): ?>
           <a style="margin-right:0px;" class="btn btn-light" href="<?=ROOT?>/login"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</a>
       <?php endif; ?>
@@ -96,7 +93,7 @@
           </a>
           <ul class="dropdown-menu text-small">
             <!-- đây sẽ là chỗ xem thêm tin bản thân -->
-            <li><a class="dropdown-item" href="<?=ROOT?>/admin/users/edit/<?=$_SESSION['ADMIN']['id']?>">Xin chào, <?=$_SESSION['ADMIN']['username']?></a></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>/admin/users/edit/<?=$_SESSION['ADMIN']['id']?>">Xin chào, <b><?=$_SESSION['ADMIN']['username']?></b></a></li>
           <!-- thêm chức năng admin sẽ là người vào được chức năng này -->
             <li><a class="dropdown-item" href="<?=ROOT?>/admin">Admin</a></li>
         
@@ -115,7 +112,7 @@
           </a>
           <ul class="dropdown-menu text-small">
             <!-- đây sẽ là chỗ xem thêm tin bản thân -->
-            <li><a class="dropdown-item" href="<?=ROOT?>/user/users/edit/<?=$_SESSION['USER']['id']?>">Xin chào, <?=user('username')?></a></li>
+            <li><a class="dropdown-item" href="<?=ROOT?>/user/users/edit/<?=$_SESSION['USER']['id']?>">Xin chào, <b><?=$_SESSION['USER']['username']?></b></a></li>
           <!-- thêm chức năng admin sẽ là người vào được chức năng này -->
             <li><a class="dropdown-item" href="<?=ROOT?>/user">Quản lý</a></li>
         
@@ -125,17 +122,18 @@
         </div>
       <?php endif; ?>
 
-      <div class="radio" id="draggable-radio">
-  <div class="radio-antens">🎵</div>
-  <p id="current-song-title" class="playing-song">New Home (Slowed)</p>
-  <audio controls id="music" style="display:none">
-    <source id="music-source" src="<?php echo ROOT ?>/assets/music/New Home (Slowed).mp3">
-  </audio>
+  <div class="radio" id="draggable-radio">
+    <div class="radio-antens">🎵</div>
+    <p id="current-song-title" class="playing-song">New Home (Slowed)</p>
+    <audio controls id="music" style="display:none">
+      <source id="music-source" src="<?php echo ROOT ?>/assets/music/New Home (Slowed).mp3">
+    </audio>
 
-  <div style="display: flex">
-    <button id="previousSongBtn" style="background: gray; border-right: none;" onclick="previousSong()" aria-label="Previous Song">⏮️</button>
-    <button id="playMusicBtn" style="background: gray; border-right: none; border-left: none;" onclick="playMusic()" aria-label="Play/Pause Song">▶️</button>
-    <button id="nextSongBtn" style="background: gray; border-left: none;" onclick="nextSong()" aria-label="Next Song">⏭️</button>
+    <div style="display: flex">
+      <button id="previousSongBtn" style="background: gray; border-right: none;" onclick="previousSong()" aria-label="Previous Song">⏮️</button>
+      <button id="playMusicBtn" style="background: gray; border-right: none; border-left: none;" onclick="playMusic()" aria-label="Play/Pause Song">▶️</button>
+      <button id="nextSongBtn" style="background: gray; border-left: none;" onclick="nextSong()" aria-label="Next Song">⏭️</button>
+    </div>
   </div>
 
   <style>
@@ -265,7 +263,7 @@
       radioElement.style.transition = 'left 0.3s ease, top 0.3s ease'; // Bật lại transition sau khi ngừng kéo
     });
   </script>
-</div>
+
 
   </header>
 

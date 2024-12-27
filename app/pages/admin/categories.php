@@ -1,3 +1,4 @@
+<!-- Nếu biến action == add (hành động thêm mới thể loại) -->
 <?php
 if ($action == "add"): ?>
 <div class="col-md-6 mx-auto">
@@ -6,20 +7,23 @@ if ($action == "add"): ?>
 
     <?php if( !empty( $erros) ): ?>
       <div class="alert alert-danger ">
-            vui lòng sửa các lỗi bên dưới!
+            Vui lòng sửa các lỗi bên dưới!
       </div>
       <?php endif; ?>
-
-      
 
       <div class="form-floating">
 	      <input value="<?=old_value('category')?>" name="category" type="text" class="form-control mb-2" id="floatingInput" placeholder="Category">
 	      <label for="floatingInput">Tên thể loại</label>
 	    </div>
 
-          <?php if(!empty($errors['category'])):?>
-          <div class="text-danger"><?=$errors['category']?></div>
+          <?php if(!empty($erros['category'])):?>
+          <div class="text-danger"><?=$erros['category']?></div>
           <?php endif;?>
+
+    <div class="form-floating">
+	      <input value="<?=old_value('slug')?>" name="slug" type="text" class="form-control mb-2" id="floatingInput" placeholder="Category">
+	      <label for="floatingInput">Đường dẫn (có thể để trống)</label>
+	    </div>
 
     <div class="form-floating my-3">
 	      <select name="disabled" class="form-select">
@@ -39,8 +43,9 @@ if ($action == "add"): ?>
   
   </form>
 </div>
+
+<!-- Nếu biến action == edit (hành động chỉnh sửa danh mục) -->
 <?php elseif ($action == "edit"): 
-    // Code for editing a user
 ?>
 <div class="col-md-6 mx-auto">
 	  <form action="" method="post" enctype="multipart/form-data">
@@ -49,16 +54,24 @@ if ($action == "add"): ?>
 
 	    <?php if(!empty($row)):?>
 
-		    <?php if (!empty($errors)):?>
-		      <div class="alert alert-danger">Có lỗi xẩy ra!</div>
+		    <?php if (!empty($erros)):?>
+		      <div class="alert alert-danger">Có lỗi xảy ra!</div>
 		    <?php endif;?>
  
 		    <div class="form-floating">
-		      <input value="<?=old_value('category', $row['category'])?>" name="category" type="text" class="form-control mb-2" id="floatingInput" placeholder="Username">
+		      <input value="<?=old_value('category', $row['category'])?>" name="category" type="text" class="form-control mb-2" id="floatingInput" placeholder="Tên danh mục">
 		      <label for="floatingInput">Tên thể loại</label>
 		    </div>
-		      <?php if(!empty($errors['category'])):?>
-		      <div class="text-danger"><?=$errors['category']?></div>
+		      <?php if(!empty($erros['category'])):?>
+		      <div class="text-danger"><?=$erros['category']?></div>
+		      <?php endif;?>
+
+        <div class="form-floating">
+		      <input value="<?=old_value('slug', $row['slug'])?>" name="slug" type="text" class="form-control mb-2" id="floatingInput" placeholder="Đường dẫn danh mục: duong-dan">
+		      <label for="floatingInput">Đường dẫn</label>
+		    </div>
+        <?php if(!empty($erros['slug'])):?>
+		      <div class="text-danger"><?=$erros['slug']?></div>
 		      <?php endif;?>
  
 		    <div class="form-floating my-3">
@@ -81,8 +94,9 @@ if ($action == "add"): ?>
 
 	  </form>
 	</div>
+
+<!-- Nếu biến action == delete (hành động xoá danh mục) -->
 <?php elseif ($action == "delete"):
-    // Code for deleting a user
 ?>         
 <div class="col-md-6 mx-auto">
 	  <form method="post">
@@ -91,22 +105,22 @@ if ($action == "add"): ?>
 
 	    <?php if(!empty($row)):?>
 
-		    <?php if (!empty($errors)):?>
+		    <?php if (!empty($erros)):?>
 		      <div class="alert alert-danger">Có lỗi xẩy ra!</div>
 		    <?php endif;?>
 
 		    <div class="form-floating">
 		      <div class="form-control mb-2" ><?=old_value('category', $row['category'])?></div>
 		    </div>
-		      <?php if(!empty($errors['category'])):?>
-		      <div class="text-danger"><?=$errors['category']?></div>
+		      <?php if(!empty($erros['category'])):?>
+		      <div class="text-danger"><?=$erros['category']?></div>
 		      <?php endif;?>
 
 		    <div class="form-floating">
 		      <div class="form-control mb-2" ><?=old_value('slug', $row['slug'])?></div>
 		    </div>
-		      <?php if(!empty($errors['slug'])):?>
-		      <div class="text-danger"><?=$errors['slug']?></div>
+		      <?php if(!empty($erros['slug'])):?>
+		      <div class="text-danger"><?=$erros['slug']?></div>
 		      <?php endif;?>
  
 
@@ -121,6 +135,8 @@ if ($action == "add"): ?>
 
 	  </form>
 	</div>
+
+<!-- Nếu biến action == view (mặc định) (hành động xem danh mục) -->
 <?php else: ?>
 <h4 class="d-flex justify-content-between align-items-center">
     <span>Thể Loại</span>
@@ -146,28 +162,29 @@ if ($action == "add"): ?>
               $query = "SELECT * FROM categories ORDER BY id ASC LIMIT $limit OFFSET $offset";
               $rows = query($query);
         ?>
+        <!-- Nếu có dữ liệu -->
         <?php if (!empty($rows)): ?>
             <?php foreach ($rows as $row): ?>
                 <tr>
                 <td><?=$row['id']?></td>
-                <td><?=esc($row['category'])?></td>
+                <td><?=$row['category']?></td>
                 <td><?=$row['slug']?></td>
                 <td><?=$row['disabled'] ? 'Tắt':'Bật'?></td>
-                    <td>
+                <td>
+                    <!-- Nút chỉnh sửa -->
+                    <a href="<?= ROOT ?>/admin/categories/edit/<?= $row['id'] ?>">
 
-                        <a href="<?= ROOT ?>/admin/categories/edit/<?= $row['id'] ?>">
-
-                            <button class="btn btn-warning text-white btn-sm">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                        </a>
-
-                        <a href="<?= ROOT ?>/admin/categories/delete/<?= $row['id'] ?>">
-                            <button class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash-fill  "></i>
-                            </button>
-                        </a>
-                    </td>
+                        <button class="btn btn-warning text-white btn-sm">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                    </a>
+                    <!-- Nút xoá -->
+                    <a href="<?= ROOT ?>/admin/categories/delete/<?= $row['id'] ?>">
+                        <button class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash-fill  "></i>
+                        </button>
+                    </a>
+                </td>
                     
                         
                     
