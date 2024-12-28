@@ -23,6 +23,7 @@ function query( string $query, array $data = [] )
 
 }
 
+// né SQL injection
 function query_update( string $query, array $data = [] )
 {
 

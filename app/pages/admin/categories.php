@@ -10,8 +10,6 @@ if ($action == "add"): ?>
       </div>
       <?php endif; ?>
 
-      
-
       <div class="form-floating">
 	      <input value="<?=old_value('category')?>" name="category" type="text" class="form-control mb-2" id="floatingInput" placeholder="Category">
 	      <label for="floatingInput">Tên thể loại</label>
