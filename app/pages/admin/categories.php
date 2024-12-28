@@ -43,9 +43,8 @@ if ($action == "add"): ?>
   
   </form>
 </div>
-
-<!-- Nếu biến action == edit (hành động chỉnh sửa danh mục) -->
-<?php elseif ($action == "edit"): 
+<?php elseif ($action == "edit"):
+    // Code for editing a user
 ?>
 <div class="col-md-6 mx-auto">
 	  <form action="" method="post" enctype="multipart/form-data">
@@ -97,7 +96,8 @@ if ($action == "add"): ?>
 
 <!-- Nếu biến action == delete (hành động xoá danh mục) -->
 <?php elseif ($action == "delete"):
-?>         
+    // Code for deleting a user
+?>
 <div class="col-md-6 mx-auto">
 	  <form method="post">
 

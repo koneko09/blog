@@ -21,8 +21,8 @@
     {
     $slug = str_to_url($_POST['category']);
 
-    $query = "select id from categories where slug = :slug limit 1";
-    $slug_row = query($query, ['slug'=>$slug]);
+    $query = "select id from categories where slug = :slug limit 1"; // :slug là tham số truyền vào ($slug)
+    $slug_row = query($query, ['slug'=>$slug]); // gán biến slug_row bằng hàm query với tham số truyền vào là biến $query và mảng ['slug'=>$slug]
 
     if($slug_row)
     {
@@ -45,7 +45,7 @@
       $data['slug']     = $slug;
       $data['disabled'] = $_POST['disabled'];
 
-      $query = "insert into categories (category,slug,disabled) values (:category,:slug,:disabled)";
+      $query = "insert into categories (category,slug,disabled) values (:category,:slug,:disabled)"; // :category,:slug,:disabled === $data['category'],$data['slug'],$data['disabled]
       query($query, $data);
 
       redirect('admin/categories');
