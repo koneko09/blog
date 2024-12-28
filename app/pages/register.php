@@ -73,40 +73,97 @@
     <meta name="description" content="">
     <title>ĐĂNG KÍ - <?php echo APP_NAME ?></title>
 
+    <!-- Custom Css -->
+    <link href="<?php echo ROOT ?>/assets/css/signin.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo ROOT ?>/assets/css/all.css">
+    <script src="<?php echo ROOT ?>/assets/js/function.js" defer></script>
+    <!-- Css Bootstrap -->
     <link href="<?php echo ROOT ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <!-- Font Awesome -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <style>
-      .login-form {
-		  width: 340px;
-    	margin: 50px auto;
-	}
-    .login-form form {
-    	margin-bottom: 15px;
-        background: #f7f7f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px;
-    }
-    .login-form h2 {
-        margin: 0 0 15px;
-    }
-    .form-control, .btn {
-        min-height: 38px;
-        border-radius: 2px;
-    }
-    .btn {        
-        font-size: 15px;
-        font-weight: bold;
-    }
-    </style>
+<!-- Css form đăng nhập -->
+ <style>
+   .login-form {
+   width: 340px;
+   margin: 50px auto;
+}
+ .login-form form {
+   margin-bottom: 15px;
+     background: #f7f7f7;
+     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+     padding: 30px;
+ }
+ .login-form h2 {
+     margin: 0 0 15px;
+ }
+ .form-control, .btn {
+     min-height: 38px;
+     border-radius: 2px;
+ }
+ .btn {        
+     font-size: 15px;
+     font-weight: bold;
+ }
+ </style>
 
-    
-    <!-- Custom styles for this template -->
-    <link href="<?php echo ROOT ?>/assets/css/signin.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo ROOT ?>/assets/css/all.css">
-    <script src="<?php echo ROOT ?>/assets/js/function.js" defer></script>
+ <!-- Css cho ẩn/ hiện mật khẩu -->
+ <style>
+ .an-hien-password {
+     position: relative; /* Đặt vị trí của phần tử cha thành tương đối (relative),
+                         giúp phần tử con (có position: absolute) định vị dựa trên phần tử cha này */
+ }
+
+ /* Định dạng phần tử toggle-password (biểu tượng con mắt) */
+ .toggle-password {
+     position: absolute; /* Định vị phần tử một cách tuyệt đối dựa trên phần tử cha có position: relative */
+     top: 50%; /* Đặt phần tử ở giữa chiều cao của phần tử cha (50% từ trên xuống) */
+     right: 10px; /* Đặt phần tử cách cạnh phải của phần tử cha 10 pixel */
+     transform: translateY(-50%); /* Di chuyển phần tử lên một nửa chiều cao của chính nó 
+                                     để căn giữa chính xác theo trục dọc */
+     cursor: pointer; /* Thay đổi con trỏ chuột thành dạng "bàn tay" khi người dùng di chuột vào */
+     color: #aaa; /* Đặt màu xám nhạt (#aaa) cho biểu tượng */
+ }
+
+ /* Thêm hiệu ứng khi người dùng di chuột qua biểu tượng toggle-password */
+ .toggle-password:hover {
+     color: #000; /* Khi di chuột vào, màu của biểu tượng sẽ chuyển từ xám nhạt (#aaa) sang đen (#000),
+                     tạo cảm giác tương tác */
+ }
+ </style>
+
+ <!-- JS cho ẩn hiện mật khẩu -->
+ <script>
+ function togglePassword(id, phanTu) {
+     // lấy phần tử bằng id
+     const input = document.getElementById(id);
+     // Tìm thẻ i nằm bên trong phần tử
+     const icon = phanTu.querySelector('i');
+
+     // Nếu phần tử có type là password
+     if (input.type === "password") {
+         // set lại thành type text
+         input.type = "text";
+         // Loại bỏ lớp fa-eye(mắt mở) của thẻ i (icon)
+         icon.classList.remove('fa-eye');
+         // Thêm lớp fa-eye-slash(mắt đóng) cho thẻ i (icon)
+         icon.classList.add('fa-eye-slash');
+     }
+     // Nếu phần tử có type không là password (text)
+     else {
+         // set lại thành type text
+         input.type = "password";
+         // Loại bỏ lớp fa-eye-slash(mắt đóng) của thẻ i (icon)
+         icon.classList.remove('fa-eye-slash');
+         // Thêm lớp fa-eye(mắt mở) cho thẻ i (icon)
+         icon.classList.add('fa-eye');
+     }
+ }
+ </script>
+
   </head>
   <body class="text-center theme white-theme">
     
@@ -145,15 +202,21 @@
           <?php if( !empty( $erros['email'])): ?>
     <div class="text-danger" style="text-align: left; margin-top: 0px; padding-top: 0px;"> <?=$erros['email'] ?></div>
     <?php endif; ?>
-          <div class="form-group">    
-              <input value="<?=old_value('password')?>" type="password" name="password" class="form-control" placeholder="Mật khẩu" required="required">
-          </div>
+          <div class="form-group an-hien-password">    
+              <input value="<?=old_value('password')?>" type="password" name="password" id="password" class="form-control" placeholder="Mật khẩu" required="required">
+              <span class="toggle-password" onclick="togglePassword('password', this)">
+                    <i class="fa fa-eye"></i>
+                </span>
+            </div>
           <?php if( !empty( $erros['password'])): ?>
     <div class="text-danger" style="text-align: left;"> <?=$erros['password'] ?></div>
     <?php endif; ?>
-          <div class="form-group">    
-              <input value="<?=old_value('rePassword')?>" type="password" name="rePassword" class="form-control" placeholder="Nhập lại khẩu" required="required">
-          </div>
+          <div class="form-group an-hien-password">    
+              <input value="<?=old_value('rePassword')?>" type="password" name="rePassword" id="rePassword" class="form-control" placeholder="Nhập lại khẩu" required="required">
+              <span class="toggle-password" onclick="togglePassword('rePassword', this)">
+                    <i class="fa fa-eye"></i>
+                </span>
+            </div>
           <div class="checkbox mb-3">
           <label>
             <input <?=old_check('terms')?> type="checkbox" name="terms" value="remember-me"> Chấp nhận các điều khoản

@@ -14,7 +14,7 @@
         <h5>Giới thiệu thành viên</h5>
         <ul class="nav flex-column">
           <li class="nav-item mb-2"><span class="text-muted">Bùi Đức Thắng - 2121050756</span></li>
-          <li class="nav-item mb-2"><span class="text-muted">Đặng Dũng - 2221050407</span></li>
+          <li class="nav-item mb-2"><span class="text-muted">Đặng Trí Dũng - 2221050407</span></li>
           <li class="nav-item mb-2"><span class="text-muted">Nguyễn Văn Minh - 2221050440</span></li>
         </ul>
       </div>
@@ -34,7 +34,7 @@
 
     <!-- Phần cuối -->
     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>&copy; 2024</p>
+      <p class="m-auto">&copy; 2024</p>
       <ul class="list-unstyled d-flex">
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>

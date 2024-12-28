@@ -16,7 +16,7 @@
         
             <li>
             <img src="<?=get_image($row['image'])?>">
-              <div class="ism-caption ism-caption-0"><?=esc($row['title'])?></div>
+              <div class="ism-caption ism-caption-0"><?=$row['title']?></div>
             </li>
         
         <?php  } ?>

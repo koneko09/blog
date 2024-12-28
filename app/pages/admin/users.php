@@ -1,13 +1,15 @@
+<!-- Nếu biến action == add (hành động thêm mới người dùng) -->
 <?php
 if ($action == "add"): ?>
 <div class="col-md-6 mx-auto">
 <form method="post" enctype="multipart/form-data">
     <h1 class="h3 mb-3 fw-normal">Tạo Tài Khoản</h1>
 
-    <?php if( !empty( $erros) ): ?>
-      <div class="alert alert-danger ">
-            vui lòng sửa các lỗi bên dưới!
-      </div>
+      <!-- hiện lỗi nếu biến $erros có dữ liệu -->
+      <?php if( !empty( $erros) ): ?>
+        <div class="alert alert-danger ">
+              vui lòng sửa các lỗi bên dưới!
+        </div>
       <?php endif; ?>
 
       <div class="my-2">
@@ -15,8 +17,8 @@ if ($action == "add"): ?>
 	    		<img class="mx-auto d-block image-preview-edit" src="<?=get_image('')?>" style="cursor: pointer;width: 150px;height: 150px;object-fit: cover;">
 	    		<input onchange="display_image_edit(this.files[0])" type="file" name="image" class="d-none">
 	    	</label>
-	    	<?php if(!empty($errors['image'])):?>
-		      <div class="text-danger"><?=$errors['image']?></div>
+	    	<?php if(!empty($erros['image'])):?>
+		      <div class="text-danger"><?=$erros['image']?></div>
 		    <?php endif;?>
 
 	    	<script>
@@ -80,7 +82,7 @@ if ($action == "add"): ?>
   </form>
 </div>
 
-<!-- Nếu biến action == edit -->
+<!-- Nếu biến action == add (hành động chỉnh sửa người dùng) -->
 <?php elseif ($action == "edit"): ?>
 <div class="col-md-6 mx-auto" >
 <form method="post" enctype="multipart/form-data">
@@ -89,7 +91,7 @@ if ($action == "add"): ?>
 <?php if(!empty($row)): ?>
     <?php if( !empty( $erros) ): ?>
       <div class="alert alert-danger ">
-            vui lòng sửa các lỗi bên dưới!
+            Vui lòng sửa các lỗi bên dưới!
       </div>
       <?php endif; ?>
 
@@ -98,8 +100,8 @@ if ($action == "add"): ?>
 		    		<img class="mx-auto d-block image-preview-edit" src="<?=get_image($row['image'])?>" style="cursor: pointer;width: 150px;height: 150px;object-fit: cover;">
 		    		<input onchange="display_image_edit(this.files[0])" type="file" name="image" class="d-none">
 		    	</label>
-		    	<?php if(!empty($errors['image'])):?>
-			      <div class="text-danger"><?=$errors['image']?></div>
+		    	<?php if(!empty($erros['image'])):?>
+			      <div class="text-danger"><?=$erros['image']?></div>
 			    <?php endif;?>
 
 		    	<script>
@@ -165,7 +167,7 @@ if ($action == "add"): ?>
   </form>
 </div>
 
-<!-- Nếu action == delete -->
+<!-- Nếu biến action == delete (hành động xoá người dùng) -->
 <?php elseif ($action == "delete"): ?>         
 <div class="col-md-6 mx-auto">
 <form method="post">
@@ -209,7 +211,7 @@ if ($action == "add"): ?>
   </form>
 </div>
 
-<!-- Nếu action == view -->
+<!-- Nếu biến action == view (hành động xem số người dùng) -->
 <?php else: ?>
   <h4 class="d-flex justify-content-between align-items-center">
     <span>Người Dùng</span>
@@ -238,11 +240,12 @@ if ($action == "add"): ?>
               $query = "SELECT * FROM users ORDER BY id ASC LIMIT $limit OFFSET $offset";
               $rows = query($query);
         ?>
+        <!-- Nếu có dữ liệu -->
         <?php if (!empty($rows)): ?>
             <?php foreach ($rows as $row): ?>
                 <tr>
                     <td><?= $row['id'] ?></td>
-                    <td><?= esc($row['username']) ?></td>
+                    <td><?= $row['username'] ?></td>
                     <td><?= $row['email'] ?></td>
                     <td><?= $row['role'] ?></td>
                     <td>
@@ -250,6 +253,7 @@ if ($action == "add"): ?>
 				            </td>
                     <td><?= $row['date'] ?></td>
                     <td>
+                    <!-- Nút chỉnh sửa -->
                     <a href="<?= ROOT ?>/admin/users/edit/<?= $row['id'] ?>">
 
                         <button class="btn btn-warning text-white btn-sm">
@@ -257,6 +261,7 @@ if ($action == "add"): ?>
                         </button>
                     </a>
 
+                    <!-- Nút xoá -->
                     <a href="<?= ROOT ?>/admin/users/delete/<?= $row['id'] ?>">
                         <button class="btn btn-danger btn-sm">
                              <i class="bi bi-trash-fill"></i>

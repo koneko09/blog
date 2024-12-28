@@ -7,10 +7,14 @@
 
    
       <?php
-         $query = "select posts.*,categories.category from posts join categories on posts.category_id = categories.id order by id desc limit 6";
+        // Lấy thông tin tất cả bài viết (posts) và tên danh mục (category) của
+        // từ bảng posts nối với categories qua posts.category_id = categories.id
+        // sắp xếp theo thứ tự id giảm dần và giới hạn 6 kết quả 
+        $query = "select posts.*,categories.category from posts join categories on posts.category_id = categories.id order by id desc limit 6";
         $rows = query($query);
         if($rows)
         {
+          // Duyệt lần lượt từng phần tử trong mảng row
           foreach($rows as $row)
           {
             include "../app/pages/includes/post-cast.php";

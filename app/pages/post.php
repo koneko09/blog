@@ -1,25 +1,23 @@
 <?php include '../app/pages/includes/header.php'; ?>
 
 <div class="row">
+  <!-- màn hình medium trở lên chiếm 9 cột -->
   <div class="col-md-9">
     <h3 class="mx-auto">Bài viết</h3>
     <div class="row my-2 justify-content-center">
-      <?php  
+      <?php
+        // tên slug = phần tử thứ 2 trong mảng url
         $slug = $url[1] ?? null;
         if ($slug) {
-          $query = "SELECT posts.*, categories.category 
+          // lấy tất cả trường bảng posts, trường category, slug ở bảng categories, từ bảng posts join với bảng categories
+          // 2 bảng nối với nhau qua cột posts.category_id và categories.id
+          // điều kiện lấy là slug của bảng post trùng với giá trị biến $slug, giới hạn 1
+          $query = "SELECT posts.*, categories.category, categories.slug
                     FROM posts 
                     JOIN categories ON posts.category_id = categories.id 
                     WHERE posts.slug = :slug 
                     LIMIT 1";
           $row = query_row($query, ['slug' => $slug]);
-
-          $query2 = "SELECT posts.category_id, categories.slug 
-                     FROM posts 
-                     JOIN categories ON posts.category_id = categories.id 
-                     WHERE posts.slug = :slug 
-                     LIMIT 1";
-          $row2 = query_row($query2, ['slug' => $slug]);
         }
 
         if (!empty($row)) { ?>
@@ -28,18 +26,15 @@
               <div class="col-12 d-lg-block">
                 <img class="bd-placeholder-img w-100" height="200px" width="20%" style="object-fit: cover;" src="<?=get_image($row['image'])?>">
               </div>
-              <!-- <div style="text-align: center;">
-              <h3  class="mb-0"><?=esc($row['title'])?></h3>
-              </div> -->
               <div class="col p-4 d-flex flex-column position-static">
-                <a href="<?=ROOT?>/category/<?=esc($row2['slug'] ?? 'Unknown')?>">
+                <a href="<?=ROOT?>/category/<?=$row['slug']?>">
                   <strong class="d-inline-block mb-2 text-primary">
-                    <?=esc($row['category'] ?? 'Unknown')?>
+                    <?=$row['category']?>
                   </strong>
                 </a>
-                <h3 class="mb-0"><?=esc($row['title'])?></h3>
+                <h3 class="mb-0"><?=$row['title']?></h3>
                 <div class="mb-1 text-muted">
-                  <?=date("jS M, Y", strtotime($row['date']))?>
+                  <?=$row['date']?>
                 </div>
                 <p class="card-text mb-auto">
                   <?=nl2br(add_root_to_images($row['content']))?>
@@ -80,7 +75,7 @@
                   </tr>
                   <tr>
                     <th scope="row">Thể loại:</th>
-                    <?php 
+                    <?php
                       $query = "SELECT COUNT(id) AS num FROM categories";
                       $res = query_row($query);
                     ?>
@@ -97,7 +92,7 @@
                 </tbody>
               </table>
 
-            <div class="tags l-h-2x panel wrapper-sm padder-v-ssm mb-5 mt-4">
+            <div class="mb-5 mt-4">
               <h3 class="ms-0">Danh mục</h3>
               <?php  
                 $query = "SELECT * FROM categories ORDER BY id DESC";
@@ -111,10 +106,7 @@
                   </a>
                 <?php endforeach; ?>
               <?php endif; ?>
-            </div>
-
-            
-            
+            </div> 
           </div>
         </div>
       </div>
