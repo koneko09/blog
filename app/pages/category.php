@@ -20,7 +20,7 @@
           if($category_slug)
           {
            
-            // Lấy tất cả các bài viết (posts.*) và tên danh mục (categories.category).
+            //Lấy tất cả các bài viết (posts.*) và tên danh mục (categories.category).
             //từ bảng kết hợp giữa bảng posts và bảng categories dựa trên category_id.
             //Điều kiện: Lọc các bài viết trong các danh mục có slug tương ứng với $category_slug và có trạng thái disabled = 0.
             //order by id desc: Sắp xếp các bài viết theo id giảm dần, bài mới hiện trước
