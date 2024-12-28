@@ -42,7 +42,7 @@
   // Nếu chức năng đã chọn là quản lý bài viết
   if($session == 'posts')
   {
-    include_once "../app/pages/user/posts_controler.php";
+    include "../app/pages/user/posts_controler.php";
   }
  
   

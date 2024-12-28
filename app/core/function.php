@@ -429,6 +429,14 @@ function add_root_to_images($content)
     return $content;
 }
 
+function remove_root_from_content($content)
+{
+	
+	$content = str_replace(ROOT, "", $content);
+
+	return $content;
+}
+
 
 // Hàm tạo bảng
 function create_tables()
